@@ -1,0 +1,6 @@
+{
+  "_readme": "Booking calendar for the inquiry wizard. HOW TO USE: when you book an install, add the date under 'booked' with how many of that day's slots are now taken, e.g. \"2026-07-11\": 1 (one slot taken, one left) or \"2026-07-11\": 2 (Saturday full). Dates you never want to book go in 'blackout'. Weekend days have 2 setup slots each; Mon-Fri is always shown as 'by request' and never auto-blocked. Later this file can be replaced by a Google Calendar or Square Appointments lookup — the site reads only this shape.",
+  "weekendCapacity": { "saturday": 2, "sunday": 2 },
+  "booked": {},
+  "blackout": []
+}

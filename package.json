@@ -1,0 +1,9 @@
+{
+  "name": "madebymj-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Made by MJ — static marketing site. No build step; this file exists solely so Vercel installs dependencies for the /api serverless functions (Stripe Checkout).",
+  "dependencies": {
+    "stripe": "^16.12.0"
+  }
+}

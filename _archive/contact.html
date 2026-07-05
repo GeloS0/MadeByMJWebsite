@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book Your Event — MadeByMJ</title>
+  <meta name="description" content="Book a balloon arch, wall, garland, or Grab N Go kit with MadeByMJ." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+<nav class="nav" aria-label="Main navigation">
+  <a href="index.html" class="nav__logo">MadeByMJ</a>
+  <ul class="nav__links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="contact.html" class="nav__cta">Book Now</a></li>
+  </ul>
+  <button class="nav__hamburger" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="page-header">
+  <h1 class="page-header__title">Book Your Event</h1>
+  <p class="page-header__sub">Tell us about your vision and we'll make it happen.</p>
+</div>
+
+<section class="section">
+  <div class="section__inner">
+    <div class="contact-grid">
+
+      <!-- Contact Info -->
+      <div class="contact-info">
+        <p class="section__label">Get in Touch</p>
+        <h2 class="section__title" style="margin-bottom:2rem;">Let's bring your<br>event to life</h2>
+
+        <div class="contact-info__item">
+          <div class="contact-info__icon">📧</div>
+          <div class="contact-info__text">
+            <strong>Email</strong>
+            <span><a href="mailto:hello@madebymj.com">hello@madebymj.com</a></span>
+          </div>
+        </div>
+
+        <div class="contact-info__item">
+          <div class="contact-info__icon">📱</div>
+          <div class="contact-info__text">
+            <strong>Instagram</strong>
+            <span><a href="#" target="_blank" rel="noopener">@madebymj</a></span>
+          </div>
+        </div>
+
+        <div class="contact-info__item">
+          <div class="contact-info__icon">📍</div>
+          <div class="contact-info__text">
+            <strong>Service Area</strong>
+            <span>Add your city / metro here</span>
+          </div>
+        </div>
+
+        <div class="contact-info__item">
+          <div class="contact-info__icon">⏱️</div>
+          <div class="contact-info__text">
+            <strong>Response Time</strong>
+            <span>We reply within 24 hours</span>
+          </div>
+        </div>
+
+        <div class="contact-info__item">
+          <div class="contact-info__icon">📅</div>
+          <div class="contact-info__text">
+            <strong>Booking Lead Time</strong>
+            <span>2+ weeks preferred; we'll try for sooner</span>
+          </div>
+        </div>
+
+        <!-- Decorative -->
+        <div style="margin-top:3rem;">
+          <svg viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:260px;">
+            <path d="M10 100 Q50 30 120 60 Q180 90 230 30 Q260 10 290 30" stroke="#E8604C" stroke-width="3" fill="none" stroke-dasharray="5 4"/>
+            <circle cx="10"  cy="100" r="16" fill="#E8604C"/>
+            <circle cx="50"  cy="54"  r="13" fill="#F2C14E"/>
+            <circle cx="100" cy="45"  r="15" fill="#7BAE84"/>
+            <circle cx="155" cy="72"  r="13" fill="#2D1B3D"/>
+            <circle cx="200" cy="46"  r="15" fill="#E8604C"/>
+            <circle cx="248" cy="22"  r="13" fill="#F2C14E"/>
+            <circle cx="290" cy="30"  r="11" fill="#7BAE84"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <div>
+        <div class="flash" id="formFlash" role="alert">
+          🎈 Thanks! We got your request and will be in touch within 24 hours.
+        </div>
+
+        <!--
+          To wire this form up:
+          1. Sign up at formspree.io (free)
+          2. Create a form and copy your endpoint
+          3. Replace the action attribute below with your endpoint URL
+          e.g. action="https://formspree.io/f/yourcode"
+        -->
+        <form class="form" id="bookingForm" novalidate>
+
+          <div class="form__row">
+            <div class="form__group">
+              <label class="form__label" for="firstName">First Name *</label>
+              <input class="form__input" type="text" id="firstName" name="firstName" required placeholder="Maria" />
+            </div>
+            <div class="form__group">
+              <label class="form__label" for="lastName">Last Name *</label>
+              <input class="form__input" type="text" id="lastName" name="lastName" required placeholder="Jones" />
+            </div>
+          </div>
+
+          <div class="form__group">
+            <label class="form__label" for="email">Email Address *</label>
+            <input class="form__input" type="email" id="email" name="email" required placeholder="you@example.com" />
+          </div>
+
+          <div class="form__group">
+            <label class="form__label" for="phone">Phone (optional)</label>
+            <input class="form__input" type="tel" id="phone" name="phone" placeholder="(555) 000-0000" />
+          </div>
+
+          <div class="form__row">
+            <div class="form__group">
+              <label class="form__label" for="eventDate">Event Date *</label>
+              <input class="form__input" type="date" id="eventDate" name="eventDate" required />
+            </div>
+            <div class="form__group">
+              <label class="form__label" for="eventType">Event Type *</label>
+              <select class="form__select" id="eventType" name="eventType" required>
+                <option value="" disabled selected>Select type…</option>
+                <option>Birthday Party</option>
+                <option>Baby Shower</option>
+                <option>Bridal Shower</option>
+                <option>Wedding</option>
+                <option>Quinceañera</option>
+                <option>Graduation</option>
+                <option>Corporate Event</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form__group">
+            <label class="form__label" for="service">Service Interested In *</label>
+            <select class="form__select" id="service" name="service" required>
+              <option value="" disabled selected>Select service…</option>
+              <option>Balloon Arch</option>
+              <option>Balloon Wall</option>
+              <option>Garland</option>
+              <option>Grab N Go Kit</option>
+              <option>Multiple / Not Sure</option>
+            </select>
+          </div>
+
+          <div class="form__group">
+            <label class="form__label" for="colors">Color Palette / Vibe</label>
+            <input class="form__input" type="text" id="colors" name="colors" placeholder="e.g. coral, gold, sage — romantic outdoor garden feel" />
+          </div>
+
+          <div class="form__group">
+            <label class="form__label" for="budget">Approximate Budget</label>
+            <select class="form__select" id="budget" name="budget">
+              <option value="" disabled selected>Select range…</option>
+              <option>Under $100 (Grab N Go)</option>
+              <option>$100–$250</option>
+              <option>$250–$500</option>
+              <option>$500–$1,000</option>
+              <option>$1,000+</option>
+            </select>
+          </div>
+
+          <div class="form__group">
+            <label class="form__label" for="message">Anything else we should know?</label>
+            <textarea class="form__textarea" id="message" name="message" rows="4" placeholder="Venue name, size of space, specific requests…"></textarea>
+          </div>
+
+          <button type="submit" class="btn btn--primary" style="width:100%;font-size:1rem;padding:.9rem;">
+            Send Booking Request
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div>
+      <p class="footer__logo">MadeByMJ</p>
+      <p class="footer__tagline">Turning ordinary spaces into extraordinary moments.</p>
+    </div>
+    <div>
+      <p class="footer__heading">Pages</p>
+      <ul class="footer__links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer__heading">Contact</p>
+      <ul class="footer__links">
+        <li><a href="mailto:hello@madebymj.com">hello@madebymj.com</a></li>
+        <li><a href="#">@madebymj</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <span>© 2025 MadeByMJ. All rights reserved.</span>
+    <span>Crafted with 🎈</span>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+  <script src="js/leads.js"></script>
+</body>
+</html>

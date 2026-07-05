@@ -1,0 +1,7 @@
+_archive
+originals
+.git
+.claude
+serve-site.command
+files.zip
+.env*

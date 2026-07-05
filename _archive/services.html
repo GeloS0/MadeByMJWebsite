@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Services — MadeByMJ</title>
+  <meta name="description" content="Balloon arches, walls, garlands, and Grab N Go kits from MadeByMJ." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    .service-detail {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      margin-bottom: 5rem;
+    }
+    .service-detail:nth-child(even) .service-detail__visual { order: 2; }
+    .service-detail:nth-child(even) .service-detail__text   { order: 1; }
+    .service-detail__visual {
+      border-radius: 1.5rem;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .service-detail__tag {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--plum);
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: .3rem .85rem;
+      border-radius: 2rem;
+      margin-bottom: 1rem;
+    }
+    .service-detail__title {
+      font-family: var(--font-head);
+      font-size: clamp(1.5rem, 3vw, 2.25rem);
+      color: var(--plum);
+      margin-bottom: .75rem;
+      line-height: 1.2;
+    }
+    .service-detail__desc { color: var(--gray); margin-bottom: 1.5rem; line-height: 1.7; }
+    .service-detail__features { list-style: none; margin-bottom: 2rem; }
+    .service-detail__features li {
+      padding: .4rem 0;
+      color: var(--text);
+      font-size: .95rem;
+      display: flex; gap: .6rem; align-items: center;
+    }
+    .service-detail__features li::before {
+      content: "✦";
+      color: var(--coral);
+      font-size: .7rem;
+      flex-shrink: 0;
+    }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .pricing-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 2rem 1.75rem;
+      text-align: center;
+      box-shadow: var(--shadow);
+      border-top: 4px solid var(--sage);
+      transition: transform var(--transition);
+    }
+    .pricing-card:hover { transform: translateY(-4px); }
+    .pricing-card--featured { border-top-color: var(--coral); }
+    .pricing-card__name { font-family: var(--font-head); font-size: 1.2rem; color: var(--plum); margin-bottom: .5rem; }
+    .pricing-card__price { font-size: 2rem; font-weight: 700; color: var(--coral); margin-bottom: .25rem; }
+    .pricing-card__note { font-size: .8rem; color: var(--gray); margin-bottom: 1.25rem; }
+    .pricing-card__features { list-style: none; text-align: left; margin-bottom: 1.5rem; }
+    .pricing-card__features li { font-size: .875rem; color: var(--text); padding: .3rem 0; border-bottom: 1px solid #f3f4f6; }
+    .pricing-card__features li:last-child { border-bottom: none; }
+    @media(max-width:768px){
+      .service-detail { grid-template-columns: 1fr; }
+      .service-detail:nth-child(even) .service-detail__visual { order: unset; }
+      .service-detail:nth-child(even) .service-detail__text   { order: unset; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Main navigation">
+  <a href="index.html" class="nav__logo">MadeByMJ</a>
+  <ul class="nav__links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="contact.html" class="nav__cta">Book Now</a></li>
+  </ul>
+  <button class="nav__hamburger" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="page-header">
+  <h1 class="page-header__title">Our Services</h1>
+  <p class="page-header__sub">From grand installations to DIY kits — there's something for every celebration.</p>
+</div>
+
+<section class="section">
+  <div class="section__inner">
+
+    <!-- Arches -->
+    <div class="service-detail">
+      <div class="service-detail__visual">
+        <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;background:linear-gradient(135deg,#fdf6ec,#fce7e2)">
+          <path d="M40 270 Q40 60 200 60 Q360 60 360 270" stroke="#E8604C" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <!-- balloons on arch -->
+          <circle cx="40"  cy="270" r="22" fill="#E8604C"/>
+          <circle cx="68"  cy="200" r="20" fill="#F2C14E"/>
+          <circle cx="110" cy="145" r="22" fill="#7BAE84"/>
+          <circle cx="160" cy="105" r="24" fill="#2D1B3D"/>
+          <circle cx="200" cy="92"  r="22" fill="#E8604C"/>
+          <circle cx="240" cy="105" r="24" fill="#F2C14E"/>
+          <circle cx="290" cy="145" r="22" fill="#7BAE84"/>
+          <circle cx="332" cy="200" r="20" fill="#E8604C"/>
+          <circle cx="360" cy="270" r="22" fill="#2D1B3D"/>
+          <!-- strings -->
+          <line x1="40"  y1="292" x2="40"  y2="310" stroke="#999" stroke-width="1.5"/>
+          <line x1="360" y1="292" x2="360" y2="310" stroke="#999" stroke-width="1.5"/>
+        </svg>
+      </div>
+      <div class="service-detail__text">
+        <span class="service-detail__tag">Most Popular</span>
+        <h2 class="service-detail__title">Balloon Arches</h2>
+        <p class="service-detail__desc">Our signature arches make a statement. Whether you want an organic cascading arch or a clean structured piece, we build each one on-site to ensure it's perfectly fitted to your space.</p>
+        <ul class="service-detail__features">
+          <li>Organic or geometric styles available</li>
+          <li>Custom color palette matching</li>
+          <li>Sizes from 6 ft to 20+ ft</li>
+          <li>Setup and breakdown included</li>
+          <li>Available for indoor &amp; outdoor events</li>
+        </ul>
+        <a href="contact.html" class="btn btn--primary">Get a Quote</a>
+      </div>
+    </div>
+
+    <!-- Walls -->
+    <div class="service-detail">
+      <div class="service-detail__visual">
+        <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;background:linear-gradient(135deg,#f0f7f1,#fdf6ec)">
+          <g transform="translate(30,20)">
+            <!-- 5x4 grid of balloons -->
+            <circle cx="50"  cy="50"  r="28" fill="#E8604C"/>
+            <circle cx="120" cy="50"  r="28" fill="#F2C14E"/>
+            <circle cx="190" cy="50"  r="28" fill="#7BAE84"/>
+            <circle cx="260" cy="50"  r="28" fill="#2D1B3D"/>
+            <circle cx="330" cy="50"  r="28" fill="#E8604C"/>
+
+            <circle cx="50"  cy="118" r="28" fill="#7BAE84"/>
+            <circle cx="120" cy="118" r="28" fill="#2D1B3D"/>
+            <circle cx="190" cy="118" r="28" fill="#E8604C"/>
+            <circle cx="260" cy="118" r="28" fill="#F2C14E"/>
+            <circle cx="330" cy="118" r="28" fill="#7BAE84"/>
+
+            <circle cx="50"  cy="186" r="28" fill="#F2C14E"/>
+            <circle cx="120" cy="186" r="28" fill="#E8604C"/>
+            <circle cx="190" cy="186" r="28" fill="#2D1B3D"/>
+            <circle cx="260" cy="186" r="28" fill="#7BAE84"/>
+            <circle cx="330" cy="186" r="28" fill="#E8604C"/>
+
+            <circle cx="50"  cy="254" r="28" fill="#2D1B3D"/>
+            <circle cx="120" cy="254" r="28" fill="#7BAE84"/>
+            <circle cx="190" cy="254" r="28" fill="#F2C14E"/>
+            <circle cx="260" cy="254" r="28" fill="#E8604C"/>
+            <circle cx="330" cy="254" r="28" fill="#2D1B3D"/>
+          </g>
+        </svg>
+      </div>
+      <div class="service-detail__text">
+        <span class="service-detail__tag">Backdrop Favorite</span>
+        <h2 class="service-detail__title">Balloon Walls</h2>
+        <p class="service-detail__desc">Full-coverage walls that serve as the ultimate photo backdrop. A balloon wall instantly elevates any space and keeps guests engaged all event long.</p>
+        <ul class="service-detail__features">
+          <li>Standard sizes: 6×8, 8×8, 8×10 ft</li>
+          <li>Custom sizes available</li>
+          <li>Mosaic letters &amp; numbers add-on</li>
+          <li>Great for brand activations</li>
+          <li>Delivery &amp; setup included</li>
+        </ul>
+        <a href="contact.html" class="btn btn--primary">Get a Quote</a>
+      </div>
+    </div>
+
+    <!-- Garlands -->
+    <div class="service-detail">
+      <div class="service-detail__visual">
+        <svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;background:linear-gradient(135deg,#fdf6ec,#f0f7f1)">
+          <path d="M20 180 Q80 80 160 130 Q240 180 320 100 Q370 60 385 80" stroke="#2D1B3D" stroke-width="3" fill="none" stroke-dasharray="6 4"/>
+          <circle cx="20"  cy="180" r="28" fill="#E8604C"/>
+          <circle cx="60"  cy="115" r="22" fill="#F2C14E"/>
+          <circle cx="100" cy="95"  r="26" fill="#7BAE84"/>
+          <circle cx="145" cy="118" r="24" fill="#2D1B3D"/>
+          <circle cx="185" cy="145" r="28" fill="#E8604C"/>
+          <circle cx="230" cy="130" r="22" fill="#F2C14E"/>
+          <circle cx="270" cy="108" r="26" fill="#7BAE84"/>
+          <circle cx="315" cy="92"  r="24" fill="#E8604C"/>
+          <circle cx="358" cy="72"  r="20" fill="#2D1B3D"/>
+        </svg>
+      </div>
+      <div class="service-detail__text">
+        <span class="service-detail__tag">Versatile</span>
+        <h2 class="service-detail__title">Garlands</h2>
+        <p class="service-detail__desc">Organic balloon garlands add dimension and texture to any surface. Wrap them around mantels, drape them down staircases, or float them across a ceiling.</p>
+        <ul class="service-detail__features">
+          <li>Sold by the foot (minimum 6 ft)</li>
+          <li>Mixed size clusters for an organic look</li>
+          <li>Table, ceiling, staircase placements</li>
+          <li>Leaf, floral, and foliage add-ons</li>
+          <li>DIY pickup or full-service install</li>
+        </ul>
+        <a href="contact.html" class="btn btn--primary">Get a Quote</a>
+      </div>
+    </div>
+
+    <!-- Grab N Go -->
+    <div class="service-detail">
+      <div class="service-detail__visual">
+        <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;background:linear-gradient(135deg,#fce7e2,#fdf6ec)">
+          <!-- bag -->
+          <rect x="110" y="140" width="180" height="130" rx="12" fill="#F2C14E"/>
+          <path d="M148 140 V108 Q148 70 200 70 Q252 70 252 108 V140" stroke="#E8604C" stroke-width="8" fill="none" stroke-linecap="round"/>
+          <!-- balloons floating above bag -->
+          <circle cx="155" cy="48"  r="24" fill="#E8604C"/>
+          <circle cx="200" cy="36"  r="26" fill="#7BAE84"/>
+          <circle cx="245" cy="48"  r="24" fill="#2D1B3D"/>
+          <line x1="155" y1="72"  x2="155" y2="90"  stroke="#999" stroke-width="1.5"/>
+          <line x1="200" y1="62"  x2="200" y2="90"  stroke="#999" stroke-width="1.5"/>
+          <line x1="245" y1="72"  x2="245" y2="90"  stroke="#999" stroke-width="1.5"/>
+          <!-- handle dot -->
+          <circle cx="200" cy="195" r="14" fill="#2D1B3D"/>
+        </svg>
+      </div>
+      <div class="service-detail__text">
+        <span class="service-detail__tag">DIY Option</span>
+        <h2 class="service-detail__title">Grab N Go Kits</h2>
+        <p class="service-detail__desc">Want the MadeByMJ look without full-service pricing? Our Grab N Go kits include pre-sorted balloons, a pump, ribbon, and step-by-step instructions — everything you need, nothing you don't.</p>
+        <ul class="service-detail__features">
+          <li>Pre-sorted by color &amp; size</li>
+          <li>Hand pump included</li>
+          <li>Written &amp; photo instructions</li>
+          <li>Garland or cluster kit options</li>
+          <li>Ready for same-week pickup</li>
+        </ul>
+        <a href="contact.html" class="btn btn--primary">Order a Kit</a>
+      </div>
+    </div>
+
+    <!-- Pricing overview -->
+    <div style="text-align:center;margin-bottom:2rem;">
+      <p class="section__label">Investment</p>
+      <h2 class="section__title">Starting prices</h2>
+      <p class="section__lead" style="margin:0 auto;">Every event is unique — these are starting points. Contact us for a custom quote.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <p class="pricing-card__name">Garland</p>
+        <p class="pricing-card__price">$20<span style="font-size:1rem;font-weight:400">/ft</span></p>
+        <p class="pricing-card__note">6 ft minimum</p>
+        <ul class="pricing-card__features">
+          <li>Organic style</li>
+          <li>Custom colors</li>
+          <li>DIY or installed</li>
+        </ul>
+        <a href="contact.html" class="btn btn--primary" style="width:100%;display:block;text-align:center;">Book</a>
+      </div>
+      <div class="pricing-card pricing-card--featured">
+        <p class="pricing-card__name">Arch</p>
+        <p class="pricing-card__price">$250<span style="font-size:1rem;font-weight:400">+</span></p>
+        <p class="pricing-card__note">Starting price</p>
+        <ul class="pricing-card__features">
+          <li>Custom sizing</li>
+          <li>Setup &amp; breakdown</li>
+          <li>Indoor or outdoor</li>
+        </ul>
+        <a href="contact.html" class="btn btn--primary" style="width:100%;display:block;text-align:center;">Book</a>
+      </div>
+      <div class="pricing-card">
+        <p class="pricing-card__name">Wall</p>
+        <p class="pricing-card__price">$400<span style="font-size:1rem;font-weight:400">+</span></p>
+        <p class="pricing-card__note">6×8 ft base</p>
+        <ul class="pricing-card__features">
+          <li>Full backdrop</li>
+          <li>Custom colors</li>
+          <li>Delivery included</li>
+        </ul>
+        <a href="contact.html" class="btn btn--primary" style="width:100%;display:block;text-align:center;">Book</a>
+      </div>
+      <div class="pricing-card">
+        <p class="pricing-card__name">Grab N Go Kit</p>
+        <p class="pricing-card__price">$65<span style="font-size:1rem;font-weight:400">+</span></p>
+        <p class="pricing-card__note">Standard kit</p>
+        <ul class="pricing-card__features">
+          <li>Pre-sorted balloons</li>
+          <li>Pump &amp; ribbon</li>
+          <li>Instructions</li>
+        </ul>
+        <a href="contact.html" class="btn btn--primary" style="width:100%;display:block;text-align:center;">Order</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div>
+      <p class="footer__logo">MadeByMJ</p>
+      <p class="footer__tagline">Turning ordinary spaces into extraordinary moments.</p>
+    </div>
+    <div>
+      <p class="footer__heading">Pages</p>
+      <ul class="footer__links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer__heading">Contact</p>
+      <ul class="footer__links">
+        <li><a href="mailto:hello@madebymj.com">hello@madebymj.com</a></li>
+        <li><a href="#">@madebymj</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <span>© 2025 MadeByMJ. All rights reserved.</span>
+    <span>Crafted with 🎈</span>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+  <script src="js/leads.js"></script>
+</body>
+</html>

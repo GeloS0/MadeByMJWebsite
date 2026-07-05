@@ -1,0 +1,12 @@
+{
+  "framework": null,
+  "buildCommand": null,
+  "outputDirectory": null,
+  "installCommand": null,
+  "redirects": [
+    { "source": "/book", "destination": "/inquire.html", "permanent": false },
+    { "source": "/book-now", "destination": "/inquire.html", "permanent": false },
+    { "source": "/services.html", "destination": "/index.html", "permanent": true },
+    { "source": "/services", "destination": "/index.html", "permanent": true }
+  ]
+}

@@ -1,0 +1,6 @@
+.vercel
+.env*
+node_modules
+.git-paused
+.DS_Store
+.claude
