@@ -228,6 +228,15 @@
             <input id="f-date" name="date" type="date" required class="w-full rounded-lg border border-ink/15 bg-pearl px-5 py-3.5 text-sm outline-none transition focus:border-deeprose" />
             <p id="f-date-status" class="mt-2 hidden text-xs font-medium" role="status"></p>
           </div>
+          <!-- Rush booking notice — shown only for dates inside the rush window (see RUSH_THRESHOLD_DAYS). Not a hard block: customer must acknowledge to proceed. -->
+          <div id="rush-notice" class="hidden sm:col-span-2 rounded-lg border border-deeprose/30 bg-rose/5 p-5">
+            <p class="text-sm font-medium text-deeprose">Heads up — this is a rush booking.</p>
+            <p class="mt-1 text-sm leading-relaxed text-ink/60">Your event is fewer than <span class="rush-days">7</span> days away. Rush bookings carry a flat <span class="rush-fee-amt">$150</span> fee for expedited sourcing and scheduling. It's added to your total and included in the 50% retainer you pay today.</p>
+            <label class="mt-4 flex cursor-pointer items-start gap-3">
+              <input type="checkbox" id="f-rush-ack" class="mt-0.5 h-5 w-5 shrink-0" />
+              <span class="text-sm text-ink/80">Yes, I understand this is a rush booking and the <span class="rush-fee-amt">$150</span> rush fee applies.</span>
+            </label>
+          </div>
           <div>
             <label for="f-guests" class="mb-2 block text-[11px] font-medium uppercase tracking-[0.2em] text-ink/50">Estimated guests</label>
             <input id="f-guests" name="guests" type="number" min="1" placeholder="75" class="w-full rounded-lg border border-ink/15 bg-pearl px-5 py-3.5 text-sm outline-none transition placeholder:text-ink/35 focus:border-deeprose" />
@@ -258,32 +267,12 @@
         </div>
       </fieldset>
 
-      <!-- Step 5 · Rental add-ons -->
+      <!-- Step 5 · Add-ons (priced, dynamic — rows rendered from the ADDONS config in JS) -->
       <fieldset class="wiz-step hidden" data-step="5">
-        <legend class="sr-only">Rental add-ons</legend>
-        <p class="text-sm leading-relaxed text-ink/60">Our rentals collection is launching soon. Check anything you'd like us to include in your quote conversation — no commitment.</p>
-        <div class="mt-6 grid gap-4 sm:grid-cols-2">
-          <label class="cursor-pointer rounded-lg border border-ink/15 p-6 transition hover:border-sky has-[:checked]:border-sky has-[:checked]:bg-sky/5">
-            <input type="checkbox" name="addons" value="Arch" class="sr-only" />
-            <p class="font-display text-xl font-light">Arch</p>
-            <p class="mt-1 text-sm text-ink/50">Round, square, or organic frame</p>
-          </label>
-          <label class="cursor-pointer rounded-lg border border-ink/15 p-6 transition hover:border-sky has-[:checked]:border-sky has-[:checked]:bg-sky/5">
-            <input type="checkbox" name="addons" value="Backdrop" class="sr-only" />
-            <p class="font-display text-xl font-light">Backdrop</p>
-            <p class="mt-1 text-sm text-ink/50">Panels or shimmer wall, with vinyl</p>
-          </label>
-          <label class="cursor-pointer rounded-lg border border-ink/15 p-6 transition hover:border-sky has-[:checked]:border-sky has-[:checked]:bg-sky/5">
-            <input type="checkbox" name="addons" value="Tent" class="sr-only" />
-            <p class="font-display text-xl font-light">Tent</p>
-            <p class="mt-1 text-sm text-ink/50">Outdoor cover, styled</p>
-          </label>
-          <label class="cursor-pointer rounded-lg border border-ink/15 p-6 transition hover:border-sky has-[:checked]:border-sky has-[:checked]:bg-sky/5">
-            <input type="checkbox" name="addons" value="Tables & chairs" class="sr-only" />
-            <p class="font-display text-xl font-light">Tables &amp; chairs</p>
-            <p class="mt-1 text-sm text-ink/50">Seating matched to the palette</p>
-          </label>
-        </div>
+        <legend class="sr-only">Add-ons</legend>
+        <p class="text-sm leading-relaxed text-ink/60">Add anything you'd like included. Prices are Colorado Springs rates — your running total and the 50% retainer update automatically as you choose.</p>
+        <div id="addons-list" class="mt-6 grid gap-3"></div>
+        <div id="order-summary" class="mt-6 rounded-lg bg-ink/5 p-5 text-sm text-ink/70"></div>
       </fieldset>
 
       <!-- Step 6 · Contact -->
@@ -304,7 +293,7 @@
           </div>
           <div class="sm:col-span-2">
             <label for="f-refcode" class="mb-2 block text-[11px] font-medium uppercase tracking-[0.2em] text-ink/50">Referral code <span class="normal-case tracking-normal text-ink/40">(optional — 10% off your first booking)</span></label>
-            <input id="f-refcode" name="refcode" type="text" placeholder="MARIA-7Q2F" class="w-full rounded-lg border border-ink/15 bg-pearl px-5 py-3.5 text-sm uppercase outline-none transition placeholder:normal-case placeholder:text-ink/35 focus:border-deeprose" />
+            <input id="f-refcode" name="refcode" type="text" placeholder="MBMJ-7Q2FX" class="w-full rounded-lg border border-ink/15 bg-pearl px-5 py-3.5 text-sm uppercase outline-none transition placeholder:normal-case placeholder:text-ink/35 focus:border-deeprose" />
           </div>
           <div class="sm:col-span-2">
             <label for="f-heard" class="mb-2 block text-[11px] font-medium uppercase tracking-[0.2em] text-ink/50">How did you hear about us?</label>
@@ -359,6 +348,35 @@
    ================================================================ */
 (function () {
   var STEPS = 6;
+
+  /* ================================================================
+     ADJUSTABLE BUSINESS RULES  —  edit these numbers freely.
+     Nothing below this block hardcodes a price; it all reads from here.
+     ================================================================ */
+  var RUSH_THRESHOLD_DAYS = 7;   // event dates fewer than this many calendar days out are "rush"
+  var RUSH_FEE            = 150;  // flat rush fee, in dollars
+  var DEPOSIT_RATE        = 0.5;  // retainer collected today = this share of the order total
+
+  /* ---- ADD-ON MENU: edit names & prices here, no logic changes needed ----
+     mode 'qty'  → customer enters a quantity; line total = price × quantity
+     mode 'flat' → single checkbox; line total = price when checked
+     Prices marked "placeholder" are my best CO-Springs guesses — adjust them. */
+  var ADDONS = [
+    { id: 'chair',    label: 'Folding chair',                       mode: 'qty',  price: 2.50, unit: 'chair' },
+    { id: 'table',    label: '8 ft banquet table',                  mode: 'qty',  price: 12,   unit: 'table' },
+    { id: 'garland',  label: 'Extra garland (beyond package base)', mode: 'qty',  price: 10,   unit: 'linear foot' },
+    { id: 'cutout',   label: 'Additional themed cutout / backdrop', mode: 'qty',  price: 40,   unit: 'piece' },
+    { id: 'arch',     label: 'Extra arch',                          mode: 'flat', price: 175 },   // placeholder price
+    { id: 'backdrop', label: 'Shimmer backdrop wall',               mode: 'flat', price: 225 },   // placeholder price
+    { id: 'tent',     label: 'Styled tent cover',                   mode: 'flat', price: 200 }    // placeholder price
+  ];
+
+  /* Money formatter: whole dollars show no cents, otherwise two decimals. */
+  function fmt(n) {
+    n = Math.round(Number(n) * 100) / 100;
+    return n.toLocaleString(undefined, { minimumFractionDigits: (n % 1 ? 2 : 0), maximumFractionDigits: 2 });
+  }
+
   var LABELS = {
     1: 'Step 1 of 6 — Your milestone',
     2: 'Step 2 of 6 — Choose your package',
@@ -431,6 +449,112 @@
   }
   dateEl.addEventListener('change', checkDate);
 
+  /* ── Rush booking + priced add-ons + live order math ──────────────
+     Every dollar figure in this flow comes from computeOrder(); nothing
+     is hardcoded, so the retainer sent to Stripe can never go stale. */
+  var rushNotice   = document.getElementById('rush-notice');
+  var rushAckEl    = document.getElementById('f-rush-ack');
+  var addonsList   = document.getElementById('addons-list');
+  var orderSummary = document.getElementById('order-summary');
+
+  // Keep the on-screen copy in sync with the RUSH_* constants above.
+  Array.prototype.forEach.call(document.querySelectorAll('.rush-days'), function (el) { el.textContent = RUSH_THRESHOLD_DAYS; });
+  Array.prototype.forEach.call(document.querySelectorAll('.rush-fee-amt'), function (el) { el.textContent = '$' + fmt(RUSH_FEE); });
+
+  // Build one row per add-on from the ADDONS config — edit the config, not this.
+  ADDONS.forEach(function (a) {
+    var row = document.createElement('label');
+    row.className = 'flex items-center justify-between gap-4 rounded-lg border border-ink/15 p-4 transition hover:border-sky has-[:checked]:border-sky has-[:checked]:bg-sky/5';
+    var meta = '$' + fmt(a.price) + (a.mode === 'qty' ? ' / ' + a.unit : '');
+    var left = '<span class="block"><span class="font-display text-lg font-light">' + a.label +
+               '</span><span class="mt-0.5 block text-xs text-ink/50">' + meta + '</span></span>';
+    var control = a.mode === 'qty'
+      ? '<input type="number" inputmode="numeric" min="0" step="1" value="0" data-addon="' + a.id + '" aria-label="' + a.label + ' quantity" class="addon-input w-20 rounded-lg border border-ink/15 bg-pearl px-3 py-2 text-right text-sm outline-none transition focus:border-deeprose" />'
+      : '<input type="checkbox" data-addon="' + a.id + '" aria-label="' + a.label + '" class="addon-input h-5 w-5 shrink-0" />';
+    row.innerHTML = left + control;
+    addonsList.appendChild(row);
+  });
+
+  function isRushDate() {
+    var v = dateEl.value;
+    if (!v) return false;
+    var today = new Date(); today.setHours(0, 0, 0, 0);
+    var ev = new Date(v + 'T00:00:00');
+    var days = Math.round((ev - today) / 86400000);
+    return days < RUSH_THRESHOLD_DAYS;
+  }
+
+  // Single source of truth for package + add-ons + rush → total + 50% retainer.
+  function computeOrder() {
+    var pkgRadio = form.querySelector('input[name="package"]:checked');
+    var packagePrice = pkgRadio ? Number(pkgRadio.dataset.price || 0) : 0;
+    var lines = [];
+    ADDONS.forEach(function (a) {
+      var el = addonsList.querySelector('[data-addon="' + a.id + '"]');
+      if (!el) return;
+      if (a.mode === 'qty') {
+        var q = Math.max(0, parseInt(el.value, 10) || 0);
+        if (q > 0) lines.push({ id: a.id, label: a.label, qty: q, unit: a.unit, price: a.price, lineTotal: Math.round(q * a.price * 100) / 100 });
+      } else if (el.checked) {
+        lines.push({ id: a.id, label: a.label, qty: 1, unit: null, price: a.price, lineTotal: a.price });
+      }
+    });
+    var addonsTotal = Math.round(lines.reduce(function (s, l) { return s + l.lineTotal; }, 0) * 100) / 100;
+    var rushApplies = isRushDate() && !!rushAckEl && rushAckEl.checked;
+    var rushFee = rushApplies ? RUSH_FEE : 0;
+    var total = Math.round((packagePrice + addonsTotal + rushFee) * 100) / 100;
+    var retainer = Math.round(total * DEPOSIT_RATE * 100) / 100;
+    return {
+      packageName: pkgRadio ? pkgRadio.value : '', packagePrice: packagePrice,
+      lines: lines, addonsTotal: addonsTotal,
+      rushApplies: rushApplies, rushFee: rushFee,
+      total: total, retainer: retainer, balance: Math.round((total - retainer) * 100) / 100
+    };
+  }
+
+  function addonsText(order) {
+    return order.lines.length
+      ? order.lines.map(function (l) { return l.qty + '× ' + l.label + ' — $' + fmt(l.lineTotal); }).join('; ')
+      : 'None';
+  }
+
+  // Repaint the Step 2 package line and the Step 5 order box from computeOrder().
+  function refresh() {
+    var o = computeOrder();
+    if (packageSummary && o.packageName) {
+      packageSummary.innerHTML = '<strong class="font-medium text-ink">' + o.packageName + '</strong> — $' + fmt(o.packagePrice) +
+        ' base. Add-ons and any rush fee are added in the next steps; your 50% retainer updates automatically.';
+      packageSummary.classList.remove('hidden');
+    }
+    if (orderSummary) {
+      var rows = [];
+      rows.push(['Package', (o.packageName || '—') + (o.packagePrice ? ' — $' + fmt(o.packagePrice) : '')]);
+      rows.push(['Add-ons', addonsText(o)]);
+      if (o.addonsTotal) rows.push(['Add-ons subtotal', '$' + fmt(o.addonsTotal)]);
+      if (o.rushApplies) rows.push(['Rush fee', '$' + fmt(o.rushFee)]);
+      rows.push(['Order total', '$' + fmt(o.total)]);
+      rows.push(['Retainer due today (50%)', '$' + fmt(o.retainer)]);
+      rows.push(['Balance on event day', '$' + fmt(o.balance)]);
+      orderSummary.innerHTML = rows.map(function (r, i) {
+        var strong = i >= rows.length - 2;
+        return '<p class="flex justify-between gap-6 ' + (strong ? 'font-medium text-ink' : '') + '">' +
+          '<span>' + r[0] + '</span><span class="text-right tabular-nums">' + r[1] + '</span></p>';
+      }).join('');
+    }
+  }
+
+  function refreshRush() {
+    var rush = isRushDate();
+    if (rushNotice) rushNotice.classList.toggle('hidden', !rush);
+    if (!rush && rushAckEl) rushAckEl.checked = false;
+    refresh();
+  }
+
+  if (rushAckEl) rushAckEl.addEventListener('change', refresh);
+  addonsList.addEventListener('input', refresh);
+  addonsList.addEventListener('change', refresh);
+  dateEl.addEventListener('change', refreshRush);
+
   function validate(step) {
     if (step === 1 && !form.querySelector('input[name="milestone"]:checked')) {
       fail('Choose your milestone to continue.');
@@ -446,6 +570,11 @@
     }
     if (step === 3 && dateStatus === 'full') {
       fail('That date is fully booked — pick another and we’ll make it just as beautiful.');
+      return false;
+    }
+    // Rush booking is allowed, but must be explicitly acknowledged (not a hard block).
+    if (step === 3 && isRushDate() && (!rushAckEl || !rushAckEl.checked)) {
+      fail('Please check the box to acknowledge the rush booking fee before continuing.');
       return false;
     }
     if (step === 6) {
@@ -475,12 +604,7 @@
      Never hardcoded: read straight from each card's data-price attribute. */
   var packageSummary = document.getElementById('package-summary');
   form.querySelectorAll('input[name="package"]').forEach(function (radio) {
-    radio.addEventListener('change', function () {
-      var price = Number(radio.dataset.price || 0);
-      var deposit = Math.round(price * 0.5);
-      packageSummary.textContent = radio.value + ' — $' + price.toLocaleString() + ' total · $' + deposit.toLocaleString() + ' deposit due today to secure your date. Balance due on event day.';
-      packageSummary.classList.remove('hidden');
-    });
+    radio.addEventListener('change', refresh);
   });
 
   /* Live Cricut vinyl preview */
@@ -490,41 +614,44 @@
     vinylPreview.textContent = vinylInput.value.trim() || 'Your words here';
   });
 
-  /* Personal referral code: FIRSTNAME-XXXX. Backend must treat the
-     emailed copy as canonical and log it to the referral tracker. */
-  function makeRefCode(name) {
-    var first = (name.split(' ')[0] || 'MJ').toUpperCase().replace(/[^A-Z]/g, '').slice(0, 8) || 'MJ';
+  /* Brand-neutral referral code: MBMJ-XXXXX (no personal names).
+     Backend treats the emailed copy as canonical and logs it to the
+     referral tracker. Ambiguous characters (0/O/1/I) are excluded. */
+  function makeRefCode() {
     var chars = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789', rand = '';
-    for (var i = 0; i < 4; i++) rand += chars[Math.floor(Math.random() * chars.length)];
-    return first + '-' + rand;
+    for (var i = 0; i < 5; i++) rand += chars[Math.floor(Math.random() * chars.length)];
+    return 'MBMJ-' + rand;
   }
 
   function buildPayload() {
     var get = function (sel) { var el = form.querySelector(sel); return el ? el.value.trim() : ''; };
     var milestone = form.querySelector('input[name="milestone"]:checked');
-    var pkgRadio = form.querySelector('input[name="package"]:checked');
-    var packagePrice = pkgRadio ? Number(pkgRadio.dataset.price || 0) : 0;
-    var addons = Array.prototype.map.call(
-      form.querySelectorAll('input[name="addons"]:checked'),
-      function (c) { return c.value; }
-    );
+    var order = computeOrder();
     return {
       milestone: milestone ? milestone.value : '',
-      package: pkgRadio ? pkgRadio.value : '',
-      packagePrice: packagePrice,
-      depositAmount: Math.round(packagePrice * 0.5),
+      package: order.packageName,
+      packagePrice: order.packagePrice,
+      // ── money (all from computeOrder → never stale/hardcoded) ──
+      addonLines: order.lines,
+      addonsText: addonsText(order),
+      addonsTotal: order.addonsTotal,
+      rushApplies: order.rushApplies,
+      rushFee: order.rushFee,
+      orderTotal: order.total,
+      retainerAmount: order.retainer,
+      depositAmount: order.retainer, // alias kept for the confirmation recap
+      balanceDue: order.balance,
       date: get('#f-date'),
       guests: get('#f-guests'),
       venue: get('#f-venue'),
       vision: get('#f-vision'),
       vinylText: get('#f-vinyl'),
-      rentalAddons: addons,
       name: get('#f-name'),
       email: get('#f-email'),
       phone: get('#f-phone'),
       heardFrom: get('#f-heard'),
       referralCodeUsed: get('#f-refcode').toUpperCase(),
-      referralCodeIssued: makeRefCode(get('#f-name')),
+      referralCodeIssued: makeRefCode(),
       dateAvailability: dateStatus,
       submittedAt: new Date().toISOString(),
       source: 'madebymj-site/inquire'
@@ -552,14 +679,41 @@
     err.classList.add('hidden');
     setSending(true);
 
+    // Human-readable payload so the Formspree notification email is usable
+    // at a glance — labels, not internal variable names.
+    var readable = {
+      formType: 'booking',
+      _subject: 'New Made by MJ booking — ' + (payload.milestone || 'event') + ' (' + (payload.package || 'no package') + ')',
+      'Milestone': payload.milestone || '—',
+      'Event date': payload.date || '—',
+      'Rush booking': payload.rushApplies ? ('YES — $' + fmt(payload.rushFee) + ' rush fee applied') : 'No',
+      'Estimated guests': payload.guests || '—',
+      'Venue / neighborhood': payload.venue || '—',
+      'Vision / colors / theme': payload.vision || '—',
+      'Package': payload.package ? (payload.package + ' — $' + fmt(payload.packagePrice)) : '—',
+      'Vinyl decal text': payload.vinylText || '(none)',
+      'Add-ons selected': payload.addonsText,
+      'Add-ons subtotal': '$' + fmt(payload.addonsTotal),
+      'Rush fee': payload.rushApplies ? ('$' + fmt(payload.rushFee)) : '$0',
+      'Order total': '$' + fmt(payload.orderTotal),
+      'Retainer charged today (50%)': '$' + fmt(payload.retainerAmount),
+      'Balance due on event day': '$' + fmt(payload.balanceDue),
+      'Customer name': payload.name || '—',
+      'Phone': payload.phone || '—',
+      'Email': payload.email || '—',
+      'Referral code used': payload.referralCodeUsed || '(none)',
+      'Referral code issued to customer': payload.referralCodeIssued,
+      'How they heard about us': payload.heardFrom || '—',
+      'Date availability status': payload.dateAvailability,
+      'Submitted at': payload.submittedAt,
+      'Source': payload.source
+    };
+
     try {
       var leadRes = await fetch(FORMSPREE_ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify(Object.assign({
-          formType: 'booking',
-          _subject: 'New Made by MJ booking — ' + (payload.milestone || 'event') + ' (' + (payload.package || 'no package') + ')'
-        }, payload))
+        body: JSON.stringify(readable)
       });
       if (!leadRes.ok) throw new Error('lead');
     } catch (e) {
@@ -573,12 +727,36 @@
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          amount: Math.round(payload.depositAmount * 100), // cents — matches payload.depositAmount exactly
+          amount: Math.round(payload.retainerAmount * 100), // cents — the exact 50% retainer from computeOrder()
           clientEmail: payload.email,
           eventType: payload.milestone,
           eventDate: payload.date,
           packageName: payload.package,
-          refCode: payload.referralCodeIssued
+          refCode: payload.referralCodeIssued,
+          // Full booking details ride along as Stripe metadata so the
+          // webhook (api/stripe-webhook.js) can send the receipt emails.
+          metadata: {
+            milestone: payload.milestone || '',
+            eventDate: payload.date || '',
+            guests: String(payload.guests || ''),
+            venue: (payload.venue || '').slice(0, 480),
+            vision: (payload.vision || '').slice(0, 480),
+            vinylText: (payload.vinylText || '').slice(0, 480),
+            packageName: payload.package || '',
+            packagePrice: String(payload.packagePrice || 0),
+            addons: (payload.addonsText || 'None').slice(0, 480),
+            addonsTotal: String(payload.addonsTotal || 0),
+            rushApplies: payload.rushApplies ? 'yes' : 'no',
+            rushFee: String(payload.rushFee || 0),
+            orderTotal: String(payload.orderTotal || 0),
+            retainer: String(payload.retainerAmount || 0),
+            balanceDue: String(payload.balanceDue || 0),
+            customerName: payload.name || '',
+            customerPhone: payload.phone || '',
+            customerEmail: payload.email || '',
+            referralCodeIssued: payload.referralCodeIssued || '',
+            referralCodeUsed: payload.referralCodeUsed || ''
+          }
         })
       });
       var data = await checkoutRes.json();
@@ -606,30 +784,35 @@
     setVal('#f-venue', pending.venue);
     setVal('#f-vision', pending.vision);
     if (pending.vinylText) { vinylInput.value = pending.vinylText; vinylPreview.textContent = pending.vinylText; }
-    (pending.rentalAddons || []).forEach(function (v) {
-      var cb = form.querySelector('input[name="addons"][value="' + String(v).replace(/"/g, '') + '"]');
-      if (cb) cb.checked = true;
+    (pending.addonLines || []).forEach(function (l) {
+      var el = addonsList.querySelector('[data-addon="' + String(l.id).replace(/"/g, '') + '"]');
+      if (!el) return;
+      if (el.type === 'checkbox') el.checked = true; else el.value = l.qty;
     });
     setVal('#f-name', pending.name);
     setVal('#f-phone', pending.phone);
     setVal('#f-email', pending.email);
     setVal('#f-refcode', pending.referralCodeUsed);
     setVal('#f-heard', pending.heardFrom);
-    if (pending.date) checkDate();
+    if (pending.date) { checkDate(); refreshRush(); if (pending.rushApplies && rushAckEl) rushAckEl.checked = true; }
+    refresh();
   }
 
   function showConfirmation(pending, refCode) {
     document.getElementById('done-name').textContent = (pending && pending.name ? pending.name.split(' ')[0] : '') || 'friend';
     var recap = document.getElementById('done-recap');
     var rows = pending ? [
-      ['Package', pending.package + (pending.packagePrice ? ' — $' + Number(pending.packagePrice).toLocaleString() : '')],
-      ['Deposit paid', pending.depositAmount ? '$' + Number(pending.depositAmount).toLocaleString() : ''],
+      ['Package', pending.package + (pending.packagePrice ? ' — $' + fmt(pending.packagePrice) : '')],
       ['Milestone', pending.milestone],
       ['Date', pending.date],
       ['Guests', pending.guests],
       ['Venue', pending.venue],
       ['Vinyl', pending.vinylText],
-      ['Rental interest', (pending.rentalAddons || []).join(', ')]
+      ['Add-ons', pending.addonsText && pending.addonsText !== 'None' ? pending.addonsText : ''],
+      ['Rush fee', pending.rushApplies ? '$' + fmt(pending.rushFee) : ''],
+      ['Order total', pending.orderTotal ? '$' + fmt(pending.orderTotal) : ''],
+      ['Retainer paid today', (pending.retainerAmount != null ? '$' + fmt(pending.retainerAmount) : (pending.depositAmount ? '$' + fmt(pending.depositAmount) : ''))],
+      ['Balance on event day', pending.balanceDue != null ? '$' + fmt(pending.balanceDue) : '']
     ] : [];
     // The referral code is rendered ONLY here, on the confirmed return trip
     // from Stripe (payment=success in the URL Stripe itself redirected to) —
@@ -673,6 +856,7 @@
     return false;
   }
 
+  refresh(); // paint the initial order summary before any interaction
   if (!handleStripeReturn()) show(1);
 })();
 </script>

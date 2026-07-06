@@ -33,7 +33,20 @@ module.exports = async (req, res) => {
 
   try {
     const body = req.body || {};
-    const { amount, clientEmail, eventType, eventDate, packageName, refCode } = body;
+    const { amount, clientEmail, eventType, eventDate, packageName, refCode, metadata } = body;
+
+    // Stripe metadata: keys/values must be strings, <=500 chars, <=50 keys.
+    // We stash the full booking here so the webhook can build the receipt
+    // emails from the Stripe event alone (no database needed).
+    const cleanMetadata = {};
+    if (metadata && typeof metadata === 'object') {
+      Object.keys(metadata).slice(0, 45).forEach((k) => {
+        const v = metadata[k];
+        if (v == null || v === '') return;
+        cleanMetadata[k] = String(v).slice(0, 500);
+      });
+    }
+    if (refCode) cleanMetadata.referralCodeIssued = String(refCode).slice(0, 500);
 
     // amount must arrive already in cents, computed from the selected
     // package's 50% deposit — reject anything that isn't a sane positive integer.
@@ -71,6 +84,8 @@ module.exports = async (req, res) => {
       ],
       success_url: successUrl,
       cancel_url: `${origin}/inquire.html?payment=cancelled`,
+      metadata: cleanMetadata,
+      payment_intent_data: { metadata: cleanMetadata },
     });
 
     return res.status(200).json({ url: session.url, id: session.id });

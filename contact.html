@@ -157,22 +157,35 @@
     btn.disabled = true;
     btn.textContent = 'Sending…';
 
+    var phone = form.querySelector('#c-phone').value.trim();
+
     try {
+      // 1) Our own Resend-backed endpoint sends the two branded emails
+      //    (customer confirmation + full details to our inbox).
+      var mailRes = await fetch('/api/contact-inquiry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: name, email: email, phone: phone, message: message })
+      });
+
+      // 2) Formspree still runs as a lightweight backup lead record.
       var res = await fetch(FORMSPREE_ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({
           formType: 'contact',
           _subject: 'New question from ' + name + ' — Made by MJ site',
-          name: name,
-          email: email,
-          phone: form.querySelector('#c-phone').value.trim(),
-          message: message,
-          submittedAt: new Date().toISOString(),
-          source: 'madebymj-site/contact'
+          Name: name,
+          Email: email,
+          Phone: phone || '—',
+          Question: message,
+          'Submitted at': new Date().toISOString(),
+          Source: 'madebymj-site/contact'
         })
       });
-      if (!res.ok) throw new Error('contact');
+
+      // Success if EITHER path accepted the submission.
+      if (!res.ok && !mailRes.ok) throw new Error('contact');
       form.classList.add('hidden');
       document.getElementById('contact-done').classList.remove('hidden');
       window.scrollTo({ top: 0, behavior: 'smooth' });
