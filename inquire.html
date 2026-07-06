@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Book Now — Made by MJ | Colorado Springs</title>
-<meta name="description" content="Book your date: pick your package, tell us about your event, and secure it today with a 50% deposit." />
+<meta name="description" content="Book your date: pick your package, tell us about your event, and secure it today with a 50% retainer." />
 <meta name="theme-color" content="#fefbff" />
 <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
 
@@ -12,7 +12,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Made by MJ" />
 <meta property="og:title" content="Book Now — Made by MJ | Colorado Springs" />
-<meta property="og:description" content="Book your date: pick your package, tell us about your event, and secure it today with a 50% deposit." />
+<meta property="og:description" content="Book your date: pick your package, tell us about your event, and secure it today with a 50% retainer." />
 <meta property="og:image" content="images/pastel-wall.jpg" />
 <meta name="twitter:card" content="summary_large_image" />
 
@@ -141,7 +141,7 @@
         Six questions.
         <em class="block text-deeprose">Your date, secured today.</em>
       </h1>
-      <p class="mx-auto mt-6 max-w-md text-base leading-relaxed text-ink/60">Takes about three minutes. Pick your package, tell us about your event, and put down a 50% deposit to hold your date. Questions first? <a href="faq.html" class="font-medium text-deeprose hover:underline">Read the FAQ</a>, <a href="contact.html" class="font-medium text-deeprose hover:underline">send us a message</a>, or <a href="sms:+17196456836" class="font-medium text-deeprose hover:underline">text us</a>.</p>
+      <p class="mx-auto mt-6 max-w-md text-base leading-relaxed text-ink/60">Takes about three minutes. Pick your package, tell us about your event, and put down a 50% retainer to hold your date. Questions first? <a href="faq.html" class="font-medium text-deeprose hover:underline">Read the FAQ</a>, <a href="contact.html" class="font-medium text-deeprose hover:underline">send us a message</a>, or <a href="sms:+17196456836" class="font-medium text-deeprose hover:underline">text us</a>.</p>
     </div>
 
     <!-- Progress -->
@@ -187,7 +187,7 @@
       <!-- Step 2 · Package & pricing -->
       <fieldset class="wiz-step hidden" data-step="2">
         <legend class="sr-only">Choose your package</legend>
-        <p class="mb-6 text-sm leading-relaxed text-ink/60">One upfront price — design, materials, delivery, installation, and teardown, all included. A 50% deposit below secures your date today; the balance isn't due until event day.</p>
+        <p class="mb-6 text-sm leading-relaxed text-ink/60">One upfront price — design, materials, delivery, installation, and teardown, all included. A 50% retainer below secures your date today; the balance isn't due until event day.</p>
         <div class="grid gap-4 sm:grid-cols-2">
           <label class="package-card group cursor-pointer rounded-lg border border-ink/15 p-6 transition hover:border-deeprose has-[:checked]:border-deeprose has-[:checked]:bg-rose/5">
             <input type="radio" name="package" value="Bloom" data-price="700" class="sr-only" />
@@ -313,7 +313,7 @@
       <!-- Confirmation (replaces wizard on submit) -->
       <div id="wiz-done" class="hidden rounded-lg border border-ink/10 bg-rose/5 p-10 text-center">
         <p class="font-display text-3xl font-light">Your date is secured, <span id="done-name">friend</span>.</p>
-        <p class="mx-auto mt-4 max-w-sm text-sm leading-relaxed text-ink/60">Your deposit is in and your booking request is with us. We'll reply within one business day to confirm design details. The balance is due on event day.</p>
+        <p class="mx-auto mt-4 max-w-sm text-sm leading-relaxed text-ink/60">Your retainer is in and your booking request is with us. We'll reply within one business day to confirm design details. The balance is due on event day.</p>
         <div id="done-recap" class="mx-auto mt-8 max-w-md space-y-2 border-t border-ink/10 pt-6 text-left text-sm text-ink/70"></div>
         <div class="mx-auto mt-8 max-w-md rounded-lg bg-pearl border border-deeprose/30 p-6">
           <p class="text-[11px] font-medium uppercase tracking-[0.22em] text-deeprose">Your referral code</p>
@@ -403,7 +403,7 @@
     label.textContent = LABELS[step];
     count.textContent = step + ' / ' + STEPS;
     back.classList.toggle('invisible', step === 1);
-    next.textContent = step === STEPS ? 'Send & pay deposit →' : 'Next →';
+    next.textContent = step === STEPS ? 'Send & pay retainer →' : 'Next →';
     err.classList.add('hidden');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
@@ -663,7 +663,7 @@
 
   function setSending(isSending) {
     next.disabled = isSending;
-    next.textContent = isSending ? 'Sending…' : (current === STEPS ? 'Send & pay deposit →' : 'Next →');
+    next.textContent = isSending ? 'Sending…' : (current === STEPS ? 'Send & pay retainer →' : 'Next →');
   }
 
   /* THE single integration point for this flow:
@@ -850,7 +850,7 @@
     if (payment === 'cancelled') {
       var pending2 = getPending();
       if (pending2) { restoreFromPending(pending2); show(STEPS); }
-      fail('Checkout was cancelled — your details are saved below. Press “Send & pay deposit” to try again, or text us at (719) 645-6836 to arrange payment another way.');
+      fail('Checkout was cancelled — your details are saved below. Press “Send & pay retainer” to try again, or text us at (719) 645-6836 to arrange payment another way.');
       return true;
     }
     return false;
