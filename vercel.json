@@ -1,7 +1,7 @@
 {
   "framework": null,
   "buildCommand": null,
-  "outputDirectory": null,
+  "outputDirectory": ".",
   "installCommand": null,
   "redirects": [
     { "source": "/book", "destination": "/inquire.html", "permanent": false },
