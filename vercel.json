@@ -8,5 +8,8 @@
     { "source": "/book-now", "destination": "/inquire.html", "permanent": false },
     { "source": "/services.html", "destination": "/index.html", "permanent": true },
     { "source": "/services", "destination": "/index.html", "permanent": true }
+  ],
+  "crons": [
+    { "path": "/api/cron-lifecycle", "schedule": "0 15 * * *" }
   ]
 }
