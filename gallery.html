@@ -47,7 +47,7 @@
   .btn-primary:active { transform: translateY(0); }
 
   /* Nav */
-  #site-nav { transition: background-color .35s ease, box-shadow .35s ease; }
+  #site-nav { background-color: rgba(254,251,255,.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: 0 1px 0 rgba(17,8,32,.06); transition: box-shadow .35s ease; }
   #site-nav.is-scrolled { background-color: rgba(254,251,255,.92); backdrop-filter: blur(12px); box-shadow: 0 1px 0 rgba(17,8,32,.08); }
   .nav-link { position: relative; }
   .nav-link::after { content:''; position:absolute; left:0; bottom:-4px; width:100%; height:1px; background:#9e3060; transform:scaleX(0); transform-origin:left; transition:transform .3s ease; }
@@ -104,8 +104,10 @@
       <a href="rentals.html" class="nav-link text-[13px] font-bold uppercase tracking-[0.18em] text-ink hover:text-deeprose">Rentals</a>
       <a href="corporate.html" class="nav-link text-[13px] font-bold uppercase tracking-[0.18em] text-ink hover:text-deeprose">Corporate</a>
       <a href="faq.html" class="nav-link text-[13px] font-bold uppercase tracking-[0.18em] text-ink hover:text-deeprose">FAQ</a>
-      <a href="contact.html" class="rounded-full border border-ink/20 px-6 py-2.5 text-[13px] font-medium uppercase tracking-[0.18em] text-ink transition hover:border-deeprose hover:text-deeprose">Inquire</a>
-      <a href="inquire.html" class="btn-primary rounded-full bg-rose px-6 py-2.5 text-[13px] font-medium uppercase tracking-[0.18em] text-pearl hover:bg-deeprose">Book Now</a>
+      <div class="flex items-center gap-3">
+        <a href="contact.html" class="rounded-full border border-ink/25 px-5 py-2.5 text-[13px] font-medium uppercase tracking-[0.18em] text-ink transition hover:border-deeprose hover:text-deeprose">Inquire</a>
+        <a href="inquire.html" class="btn-primary rounded-full bg-rose px-6 py-2.5 text-[13px] font-medium uppercase tracking-[0.18em] text-pearl hover:bg-deeprose">Book Now</a>
+      </div>
     </div>
 
     <button id="menu-btn" class="md:hidden" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
