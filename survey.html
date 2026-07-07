@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex" />
+<title>Share your feedback — Made by MJ</title>
+<meta name="description" content="Tell us how your Made by MJ celebration went — a quick 2-minute survey." />
+<link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --ink:#110820; --pearl:#fefbff; --rose:#c4527a; --deeprose:#9e3060;
+    --lavender:#9060b0; --sky:#5890d0;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; font-family:'DM Sans',system-ui,sans-serif; color:var(--ink);
+    background:#f4eef1;
+    background-image:radial-gradient(circle at 12% 8%,rgba(196,82,122,.10),transparent 45%),radial-gradient(circle at 88% 4%,rgba(88,144,208,.09),transparent 50%);
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:640px;margin:0 auto;padding:40px 20px 72px;}
+  .card{background:var(--pearl);border:1px solid rgba(17,8,32,.08);border-radius:16px;overflow:hidden;box-shadow:0 12px 40px -18px rgba(17,8,32,.25);}
+  .head{background:var(--ink);padding:30px 32px;text-align:center;}
+  .head .logo{margin:0;font-family:Fraunces,Georgia,serif;font-weight:300;font-size:28px;color:var(--pearl);}
+  .head .logo em{font-style:italic;color:var(--rose);}
+  .head .tag{margin:6px 0 0;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:rgba(254,251,255,.55);}
+  .body{padding:32px;}
+  h1{font-family:Fraunces,Georgia,serif;font-weight:300;font-size:26px;margin:0 0 8px;}
+  .intro{font-size:15px;line-height:1.6;color:rgba(17,8,32,.66);margin:0 0 26px;}
+  .q{margin:0 0 26px;}
+  .q label.qlabel{display:block;font-weight:500;font-size:15px;margin-bottom:10px;line-height:1.45;}
+  .scale{display:flex;flex-wrap:wrap;gap:8px;}
+  .scale label{cursor:pointer;}
+  .scale input{position:absolute;opacity:0;width:0;height:0;}
+  .scale span{display:inline-flex;align-items:center;justify-content:center;min-width:42px;height:42px;padding:0 6px;border:1.5px solid rgba(17,8,32,.15);border-radius:10px;font-size:14px;font-weight:500;transition:all .15s;}
+  .scale label:hover span{border-color:var(--deeprose);}
+  .scale input:checked + span{background:var(--deeprose);border-color:var(--deeprose);color:var(--pearl);}
+  .scale-ends{display:flex;justify-content:space-between;font-size:11px;color:rgba(17,8,32,.45);margin-top:6px;}
+  textarea,input[type=text]{width:100%;padding:12px 14px;border:1.5px solid rgba(17,8,32,.15);border-radius:10px;font-family:inherit;font-size:14px;color:var(--ink);background:#fff;outline:none;transition:border .15s;resize:vertical;}
+  textarea:focus,input[type=text]:focus{border-color:var(--deeprose);}
+  .submit{width:100%;padding:15px;border:none;border-radius:12px;background:linear-gradient(135deg,var(--rose),var(--deeprose));color:var(--pearl);font-family:inherit;font-size:16px;font-weight:700;cursor:pointer;margin-top:6px;}
+  .submit:disabled{opacity:.6;cursor:not-allowed;}
+  .foot{padding:18px 32px;border-top:1px solid rgba(17,8,32,.08);text-align:center;font-size:12px;color:rgba(17,8,32,.5);}
+  .foot a{color:var(--deeprose);text-decoration:none;}
+  .thanks{display:none;padding:48px 32px;text-align:center;}
+  .thanks h2{font-family:Fraunces,Georgia,serif;font-weight:300;font-size:26px;margin:0 0 10px;}
+  .thanks p{font-size:15px;color:rgba(17,8,32,.66);line-height:1.6;margin:0;}
+  .err{display:none;margin-top:12px;font-size:13px;color:#c0392b;text-align:center;}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <div class="head">
+        <p class="logo">Made <em>by</em> MJ</p>
+        <p class="tag">Celebrations, styled.</p>
+      </div>
+
+      <div class="body" id="form-body">
+        <h1>How did we do?</h1>
+        <p class="intro">Thank you for letting us be part of your celebration. This takes about 2 minutes and helps us keep getting better. Nothing here is required — honest answers help the most.</p>
+
+        <form id="survey-form">
+          <div class="q">
+            <label class="qlabel">1. Overall, how would you rate your experience with Made by MJ?</label>
+            <div class="scale">
+              <label><input type="radio" name="Overall experience (1-5)" value="1"><span>1</span></label>
+              <label><input type="radio" name="Overall experience (1-5)" value="2"><span>2</span></label>
+              <label><input type="radio" name="Overall experience (1-5)" value="3"><span>3</span></label>
+              <label><input type="radio" name="Overall experience (1-5)" value="4"><span>4</span></label>
+              <label><input type="radio" name="Overall experience (1-5)" value="5"><span>5</span></label>
+            </div>
+            <div class="scale-ends"><span>Poor</span><span>Excellent</span></div>
+          </div>
+
+          <div class="q">
+            <label class="qlabel">2. How well did the final installation match what you envisioned?</label>
+            <div class="scale">
+              <label><input type="radio" name="Matched vision (1-5)" value="1"><span>1</span></label>
+              <label><input type="radio" name="Matched vision (1-5)" value="2"><span>2</span></label>
+              <label><input type="radio" name="Matched vision (1-5)" value="3"><span>3</span></label>
+              <label><input type="radio" name="Matched vision (1-5)" value="4"><span>4</span></label>
+              <label><input type="radio" name="Matched vision (1-5)" value="5"><span>5</span></label>
+            </div>
+            <div class="scale-ends"><span>Not really</span><span>Exactly</span></div>
+          </div>
+
+          <div class="q">
+            <label class="qlabel">3. How easy was it to communicate with us throughout?</label>
+            <div class="scale">
+              <label><input type="radio" name="Communication (1-5)" value="1"><span>1</span></label>
+              <label><input type="radio" name="Communication (1-5)" value="2"><span>2</span></label>
+              <label><input type="radio" name="Communication (1-5)" value="3"><span>3</span></label>
+              <label><input type="radio" name="Communication (1-5)" value="4"><span>4</span></label>
+              <label><input type="radio" name="Communication (1-5)" value="5"><span>5</span></label>
+            </div>
+            <div class="scale-ends"><span>Difficult</span><span>Effortless</span></div>
+          </div>
+
+          <div class="q">
+            <label class="qlabel">4. What specifically stood out as the best part of working with us?</label>
+            <textarea name="Best part" rows="3"></textarea>
+          </div>
+
+          <div class="q">
+            <label class="qlabel">5. What's one thing we could have done better?</label>
+            <textarea name="Could improve" rows="3"></textarea>
+          </div>
+
+          <div class="q">
+            <label class="qlabel">6. Was there a moment you felt unsure or almost didn't book? What was it?</label>
+            <textarea name="Moment of doubt" rows="3"></textarea>
+          </div>
+
+          <div class="q">
+            <label class="qlabel">7. What almost stopped you from booking in the first place?</label>
+            <textarea name="Almost stopped booking" rows="2"></textarea>
+          </div>
+
+          <div class="q">
+            <label class="qlabel">8. How likely are you to recommend Made by MJ to a friend? (0–10)</label>
+            <div class="scale">
+              <label><input type="radio" name="Recommend (0-10)" value="0"><span>0</span></label>
+              <label><input type="radio" name="Recommend (0-10)" value="1"><span>1</span></label>
+              <label><input type="radio" name="Recommend (0-10)" value="2"><span>2</span></label>
+              <label><input type="radio" name="Recommend (0-10)" value="3"><span>3</span></label>
+              <label><input type="radio" name="Recommend (0-10)" value="4"><span>4</span></label>
+              <label><input type="radio" name="Recommend (0-10)" value="5"><span>5</span></label>
+              <label><input type="radio" name="Recommend (0-10)" value="6"><span>6</span></label>
+              <label><input type="radio" name="Recommend (0-10)" value="7"><span>7</span></label>
+              <label><input type="radio" name="Recommend (0-10)" value="8"><span>8</span></label>
+              <label><input type="radio" name="Recommend (0-10)" value="9"><span>9</span></label>
+              <label><input type="radio" name="Recommend (0-10)" value="10"><span>10</span></label>
+            </div>
+          </div>
+
+          <div class="q">
+            <label class="qlabel">Why that number? (optional)</label>
+            <textarea name="Recommend reason" rows="2"></textarea>
+          </div>
+
+          <div class="q">
+            <label class="qlabel">9. Anything else you'd like us to know?</label>
+            <textarea name="Anything else" rows="3"></textarea>
+          </div>
+
+          <div class="q">
+            <label class="qlabel">Your name (optional)</label>
+            <input type="text" name="Name" />
+          </div>
+
+          <button type="submit" class="submit" id="submit-btn">Send feedback</button>
+          <p class="err" id="err">Something went wrong sending that — please try again, or email angelosmbj@gmail.com.</p>
+        </form>
+      </div>
+
+      <div class="thanks" id="thanks">
+        <h2>Thank you, truly.</h2>
+        <p>Your feedback just landed with us and it genuinely helps our small studio grow. We hope your celebration was everything you pictured — and we'd love to style your next one.</p>
+      </div>
+
+      <div class="foot">
+        Made by MJ · Colorado Springs · <a href="tel:+17196456836">(719) 645-6836</a> · <a href="index.html">Home</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var FORMSPREE_ENDPOINT = 'https://formspree.io/f/mdarbygn';
+    var form = document.getElementById('survey-form');
+    var btn = document.getElementById('submit-btn');
+    var err = document.getElementById('err');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      err.style.display = 'none';
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+
+      var data = { _subject: 'New feedback survey — Made by MJ' };
+      new FormData(form).forEach(function (v, k) { if (v) data[k] = v; });
+
+      fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(data)
+      }).then(function (r) {
+        if (!r.ok) throw new Error('bad status');
+        document.getElementById('form-body').style.display = 'none';
+        document.getElementById('thanks').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }).catch(function () {
+        btn.disabled = false;
+        btn.textContent = 'Send feedback';
+        err.style.display = 'block';
+      });
+    });
+  </script>
+</body>
+</html>
