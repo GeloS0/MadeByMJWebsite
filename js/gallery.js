@@ -11,6 +11,8 @@
    ============================================================ */
 (function () {
   var MBJ_GALLERY = [
+  { src:"images/july4-porch-column.jpg", alt:"Tall red, white, and blue balloon column topped with a large blue balloon on a front porch beside a red door", cat:"celebration", catLabel:"Celebration", title:"Stars & Stripes Column", tag:"Balloon column" },
+  { src:"images/july4-firecracker-column.jpg", alt:"Red and blue balloon column styled as a firecracker with silver, red, and blue starburst foils bursting from the top", cat:"celebration", catLabel:"Celebration", title:"Firecracker Column", tag:"Balloon column" },
   { src:"images/july4-porch-garland.jpg", alt:"Red, white, and blue Fourth of July balloon garland with balloon star clusters and a silver starburst styled along a porch railing", cat:"celebration", catLabel:"Celebration", title:"Fourth on the Porch", tag:"Porch garland" },
   { src:"images/welcome-home-garland.jpg", alt:"Red, white, and blue balloon garland with a silver starburst on a front-porch railing", cat:"celebration", catLabel:"Celebration", title:"Welcome Home, Hero", tag:"Patriotic garland" },
   { src:"images/pastel-wall.jpg", alt:"Full pastel balloon wall in yellow, mint, blue, pink, and purple", cat:"celebration", catLabel:"Celebration", title:"Pastel Rainbow Wall", tag:"Balloon wall" },
@@ -22,8 +24,7 @@
   { src:"images/frozen-centerpieces.jpg", alt:"Pair of blue and pearl Frozen-themed balloon centerpieces on a dining table", cat:"bday", catLabel:"Birthday", title:"Frozen Table Toppers", tag:"Centerpieces" },
   { src:"images/lavender-arch-entry.jpg", alt:"Lavender and pearl balloon arch framing a home entryway", cat:"celebration", catLabel:"Celebration", title:"Lavender Arch, Entry", tag:"Entry install" },
   { src:"images/plum-garland.jpg", alt:"Close-up of a purple and black balloon garland with foil tinsel", cat:"celebration", catLabel:"Celebration", title:"Plum & Noir, Detail", tag:"The close-up" },
-  { src:"images/july4-indoor-arch.jpg", alt:"Red, white, and blue balloon arch with silver, red, and blue starburst clusters framing an indoor doorway", cat:"celebration", catLabel:"Celebration", title:"Fourth at the Door", tag:"Doorway arch" },
-  { src:"images/july4-indoor-arch-2.jpg", alt:"Red, white, and blue balloon arch with a large silver starburst centered over a curtained doorway", cat:"celebration", catLabel:"Celebration", title:"Fourth at the Door, Detail", tag:"Doorway arch" }
+  { src:"images/july4-indoor-arch.jpg", alt:"Red, white, and blue balloon arch with silver, red, and blue starburst clusters framing an indoor doorway", cat:"celebration", catLabel:"Celebration", title:"Fourth at the Door", tag:"Doorway arch" }
   ];
 
   var GAP = 24; // px, matches design spacing
