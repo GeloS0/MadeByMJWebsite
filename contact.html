@@ -57,6 +57,7 @@
       <a href="rentals.html" class="nav-link text-[13px] font-bold uppercase tracking-[0.18em] text-ink hover:text-deeprose">Rentals</a>
       <a href="corporate.html" class="nav-link text-[13px] font-bold uppercase tracking-[0.18em] text-ink hover:text-deeprose">Corporate</a>
       <a href="faq.html" class="nav-link text-[13px] font-bold uppercase tracking-[0.18em] text-ink hover:text-deeprose">FAQ</a>
+      <a href="contact.html" class="rounded-full border border-ink/20 px-6 py-2.5 text-[13px] font-medium uppercase tracking-[0.18em] text-ink transition hover:border-deeprose hover:text-deeprose">Inquire</a>
       <a href="inquire.html" class="btn-primary rounded-full bg-rose px-6 py-2.5 text-[13px] font-medium uppercase tracking-[0.18em] text-pearl hover:bg-deeprose">Book Now</a>
     </div>
 
@@ -75,6 +76,7 @@
       <a href="rentals.html" class="mobile-link text-sm font-bold uppercase tracking-[0.18em] text-ink">Rentals</a>
       <a href="corporate.html" class="mobile-link text-sm font-bold uppercase tracking-[0.18em] text-ink">Corporate</a>
       <a href="faq.html" class="mobile-link text-sm font-bold uppercase tracking-[0.18em] text-ink">FAQ</a>
+      <a href="contact.html" class="mobile-link w-fit rounded-full border border-ink/20 px-6 py-2.5 text-sm font-medium uppercase tracking-[0.18em] text-ink">Inquire</a>
       <a href="inquire.html" class="mobile-link w-fit rounded-full bg-rose px-6 py-2.5 text-sm font-medium uppercase tracking-[0.18em] text-pearl">Book Now</a>
     </div>
   </div>
@@ -100,6 +102,8 @@
     </div>
 
     <form id="contact-form" action="https://formspree.io/f/mdarbygn" method="POST" class="reveal mt-12 rounded-lg border border-ink/15 p-6 sm:p-10" novalidate>
+      <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
+      <input type="hidden" name="mbmj_t" id="mbmj-t" value="" />
       <div class="grid gap-6">
         <div>
           <label for="c-name" class="mb-2 block text-[11px] font-medium uppercase tracking-[0.2em] text-ink/50">Your name *</label>
@@ -142,6 +146,7 @@
   var form = document.getElementById('contact-form');
   var btn = document.getElementById('contact-submit');
   var err = document.getElementById('contact-error');
+  var tstamp = document.getElementById('mbmj-t'); if (tstamp) tstamp.value = Date.now();
 
   form.addEventListener('submit', async function (e) {
     e.preventDefault();
@@ -165,7 +170,7 @@
       var mailRes = await fetch('/api/contact-inquiry', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: name, email: email, phone: phone, message: message })
+        body: JSON.stringify({ name: name, email: email, phone: phone, message: message, _gotcha: (form.querySelector('[name=_gotcha]')||{}).value || '', t: Number((tstamp||{}).value) })
       });
 
       // 2) Formspree still runs as a lightweight backup lead record.

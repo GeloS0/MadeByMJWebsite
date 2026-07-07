@@ -85,6 +85,23 @@ module.exports = async (req, res) => {
   }
 
   const body = req.body || {};
+
+  // ── Anti-spam gate ──────────────────────────────────────────────────
+  // Honeypot: real people never fill a hidden field; bots do.
+  if (body._gotcha) return res.status(200).json({ ok: true, skipped: 'honeypot' });
+  // Timing trap: a genuine form is filled in >2s and submitted the same day.
+  // Bots posting straight to this endpoint won't send a valid timestamp.
+  const _t = Number(body.t);
+  if (!_t || (Date.now() - _t) < 2000 || (Date.now() - _t) > 24 * 3600 * 1000) {
+    return res.status(200).json({ ok: true, skipped: 'timing' });
+  }
+  // Basic validation before we spend a Resend send.
+  const _nm = String(body.name || '').trim();
+  const _em = String(body.email || '').trim();
+  const _msg = String(body.message || '').trim();
+  if (!_nm || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(_em) || !_msg || _msg.length > 5000) {
+    return res.status(400).json({ error: 'Invalid submission' });
+  }
   const name = String(body.name || '').trim();
   const email = String(body.email || '').trim();
   const phone = String(body.phone || '').trim();
