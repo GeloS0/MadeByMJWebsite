@@ -272,6 +272,7 @@
     });
   }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
   document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+  window.addEventListener('load', function () { document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('is-visible'); }); });
 })();
 
 (function () {
@@ -348,5 +349,6 @@
 </script>
 
   <script src="js/leads.js"></script>
+<script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
