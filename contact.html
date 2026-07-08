@@ -151,6 +151,8 @@
   var err = document.getElementById('contact-error');
   var tstamp = document.getElementById('mbmj-t'); if (tstamp) tstamp.value = Date.now();
 
+  function mark(el){ if(!el) return; el.style.borderColor='#c0392b'; el.addEventListener('input', function hh(){ el.style.borderColor=''; el.removeEventListener('input', hh); }); el.focus(); }
+
   form.addEventListener('submit', async function (e) {
     e.preventDefault();
     var name = form.querySelector('#c-name').value.trim();
@@ -158,9 +160,9 @@
     var message = form.querySelector('#c-message').value.trim();
     err.classList.add('hidden');
 
-    if (!name) { err.textContent = 'Tell us your name.'; err.classList.remove('hidden'); return; }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err.textContent = 'Enter a valid email so we can reply.'; err.classList.remove('hidden'); return; }
-    if (!message) { err.textContent = 'Let us know what you\'d like to ask.'; err.classList.remove('hidden'); return; }
+    if (!name) { err.textContent = 'Tell us your name.'; err.classList.remove('hidden'); mark(form.querySelector('#c-name')); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err.textContent = 'Enter a valid email so we can reply.'; err.classList.remove('hidden'); mark(form.querySelector('#c-email')); return; }
+    if (!message) { err.textContent = 'Let us know what you\'d like to ask.'; err.classList.remove('hidden'); mark(form.querySelector('#c-message')); return; }
 
     btn.disabled = true;
     btn.textContent = 'Sending…';
