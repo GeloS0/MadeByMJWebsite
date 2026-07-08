@@ -312,6 +312,11 @@
             </select>
           </div>
         </div>
+
+        <label class="mt-6 flex items-start gap-3 rounded-lg border border-ink/15 p-4 transition has-[:checked]:border-deeprose has-[:checked]:bg-rose/5">
+          <input type="checkbox" id="f-agree" class="mt-0.5 h-5 w-5 shrink-0" />
+          <span class="text-sm leading-relaxed text-ink/70">I've read and agree to the <a href="terms.html" target="_blank" rel="noopener" class="font-medium text-deeprose hover:underline">Event Services Agreement</a> and <a href="policies.html" target="_blank" rel="noopener" class="font-medium text-deeprose hover:underline">booking policies</a>, including the non-refundable 50% retainer.</span>
+        </label>
       </fieldset>
 
       <!-- Confirmation (replaces wizard on submit) -->
@@ -586,6 +591,8 @@
       var email = form.querySelector('#f-email').value.trim();
       if (!name) { fail('Tell us your name.'); return false; }
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { fail('Enter a valid email so we can reply.'); return false; }
+      var agree = form.querySelector('#f-agree');
+      if (!agree || !agree.checked) { fail('Please agree to the Event Services Agreement to reserve your date.'); return false; }
     }
     return true;
   }
