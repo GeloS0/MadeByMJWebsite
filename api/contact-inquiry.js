@@ -70,14 +70,14 @@ async function sendEmail({ to, subject, html, replyTo }) {
 function shell(innerHtml) {
   return `<!DOCTYPE html><html><body style="margin:0;padding:0;background:#f4eef1;">
   <div style="max-width:560px;margin:0 auto;padding:32px 20px;font-family:'DM Sans',Segoe UI,Helvetica,Arial,sans-serif;">
-    <div style="background:${PEARL};border:1px solid rgba(17,8,32,.08);border-radius:12px;overflow:hidden;">
-      <div style="background:${INK};padding:28px 32px;text-align:center;">
+    <div style="background:${PEARL};border:1px solid rgba(17,8,32,.08);border-radius:14px;overflow:hidden;">
+      <div style="background:${INK};padding:30px 32px;text-align:center;">
         <p style="margin:0;font-family:Georgia,'Times New Roman',serif;font-size:26px;color:${PEARL};font-weight:300;">Made <em style="color:#c4527a;">by</em> MJ</p>
-        <p style="margin:6px 0 0;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:rgba(254,251,255,.55);">Celebrations, styled.</p>
+        <p style="margin:7px 0 0;font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:rgba(254,251,255,.5);">Celebrations, styled.</p>
       </div>
-      <div style="padding:32px;">${innerHtml}</div>
+      <div style="padding:40px 34px;">${innerHtml}</div>
       <div style="padding:20px 32px;border-top:1px solid rgba(17,8,32,.08);text-align:center;">
-        <p style="margin:0;font-size:12px;color:rgba(17,8,32,.5);">Colorado Springs, Colorado · <a href="tel:+17196456836" style="color:${DEEPROSE};text-decoration:none;">(719) 645-6836</a></p>
+        <p style="margin:0;font-size:12px;color:rgba(17,8,32,.5);">Made by MJ · Colorado Springs, CO · <a href="tel:+17196456836" style="color:${DEEPROSE};text-decoration:none;">(719) 645-6836</a></p>
       </div>
     </div>
   </div></body></html>`;
