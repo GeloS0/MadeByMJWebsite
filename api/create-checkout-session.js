@@ -59,7 +59,7 @@ module.exports = async (req, res) => {
     // Never trust the client's amount alone. The charged retainer must be at
     // least 50% of the selected package's list price. Blocks a tampered client
     // from paying $1 for a Signature booking. Add-ons only raise the amount.
-    const PRICES = { Bloom: 700, Grand: 1275, Luxe: 1775, Premier: 2375, Estate: 2885, Signature: 3500 };
+    const PRICES = { Bloom: 700, Grand: 1275, Luxe: 1775, Premier: 2375, Estate: 2885, Signature: 3500, 'The Vow': 2800, 'The Union': 5200, 'The Estate Wedding': 8500 };
     const base = PRICES[packageName];
     if (!base) {
       return res.status(400).json({ error: 'Unknown or missing package' });
