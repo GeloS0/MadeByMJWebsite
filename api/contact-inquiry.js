@@ -17,6 +17,19 @@
 const FROM = process.env.MJ_EMAIL_FROM || 'Made by MJ <bookings@madebymj.com>';
 const BUSINESS_INBOX = process.env.MJ_BUSINESS_EMAIL || 'angelosmbj@gmail.com';
 
+// Best-effort in-memory rate limit (per warm serverless instance): caps how
+// often one IP can submit, so a bot can't flood the inbox even if it clears
+// the honeypot/timing checks. For hard guarantees, add Upstash/Vercel KV later.
+const _hits = new Map();
+function rateLimited(ip) {
+  const now = Date.now(), WINDOW = 60000, MAX = 5;
+  const arr = (_hits.get(ip) || []).filter((t) => now - t < WINDOW);
+  arr.push(now);
+  _hits.set(ip, arr);
+  if (_hits.size > 5000) _hits.clear();
+  return arr.length > MAX;
+}
+
 const INK = '#110820';
 const DEEPROSE = '#9e3060';
 const PEARL = '#fefbff';
@@ -83,6 +96,9 @@ module.exports = async (req, res) => {
     res.setHeader('Allow', 'POST');
     return res.status(405).json({ error: 'Method not allowed' });
   }
+
+  const ip = String(req.headers['x-forwarded-for'] || '').split(',')[0].trim() || 'unknown';
+  if (rateLimited(ip)) return res.status(429).json({ error: 'Too many requests — please try again in a minute.' });
 
   const body = req.body || {};
 
