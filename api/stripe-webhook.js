@@ -20,14 +20,14 @@
 //   RESEND_API_KEY         — your Resend API key (starts with `re_`).
 //
 // ── Optional environment variables ────────────────────────────────────────
-//   MJ_EMAIL_FROM      — the "From" address. Default: "Made by MJ <bookings@madebymj.com>".
+//   MJ_EMAIL_FROM      — the "From" address. Default: "Made by MJ <bookings@eventsmadebymj.com>".
 //                        The domain must be verified in Resend before Resend
 //                        will deliver from it.
 //   MJ_BUSINESS_EMAIL  — where the internal copy goes. Default: angelosmbj@gmail.com
 
 const Stripe = require('stripe');
 
-const FROM = process.env.MJ_EMAIL_FROM || 'Made by MJ <bookings@madebymj.com>';
+const FROM = process.env.MJ_EMAIL_FROM || 'Made by MJ <bookings@eventsmadebymj.com>';
 const BUSINESS_INBOX = process.env.MJ_BUSINESS_EMAIL || 'angelosmbj@gmail.com';
 
 /* ── Brand tokens (Rose and Ink) ── */
@@ -199,6 +199,18 @@ module.exports = async (req, res) => {
     const customerEmail = m.customerEmail || session.customer_details?.email || session.customer_email || '';
     const firstName = (m.customerName || '').trim().split(/\s+/)[0] || 'friend';
 
+    // ── Idempotency: Stripe can deliver this event more than once. Stamp the
+    //    PaymentIntent the first time; no-op on repeats so no double receipts.
+    const piId = typeof session.payment_intent === 'string' ? session.payment_intent : null;
+    if (piId) {
+      try {
+        const existing = await stripe.paymentIntents.retrieve(piId);
+        if (existing.metadata && existing.metadata.mbmj_confirmed === '1') {
+          return res.status(200).json({ received: true, deduped: true });
+        }
+      } catch (e) { console.error('PI retrieve failed (continuing):', e.message); }
+    }
+
     try {
       const jobs = [];
       if (customerEmail) {
@@ -219,6 +231,12 @@ module.exports = async (req, res) => {
     } catch (err) {
       // Never fail the webhook over email — Stripe would retry the whole event.
       console.error('Post-payment email send error:', err);
+    }
+
+    // Mark processed so a duplicate delivery of this event won't re-send.
+    if (piId) {
+      try { await stripe.paymentIntents.update(piId, { metadata: { mbmj_confirmed: '1' } }); }
+      catch (e) { console.error('PI stamp failed:', e.message); }
     }
   }
 

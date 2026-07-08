@@ -10,11 +10,11 @@
 //   RESEND_API_KEY  — your Resend API key (starts with `re_`).
 //
 // ── Optional environment variables ────────────────────────────────────────
-//   MJ_EMAIL_FROM      — "From" address. Default: "Made by MJ <bookings@madebymj.com>".
+//   MJ_EMAIL_FROM      — "From" address. Default: "Made by MJ <bookings@eventsmadebymj.com>".
 //                        The domain must be verified in Resend to deliver.
 //   MJ_BUSINESS_EMAIL  — where the internal copy goes. Default: angelosmbj@gmail.com
 
-const FROM = process.env.MJ_EMAIL_FROM || 'Made by MJ <bookings@madebymj.com>';
+const FROM = process.env.MJ_EMAIL_FROM || 'Made by MJ <bookings@eventsmadebymj.com>';
 const BUSINESS_INBOX = process.env.MJ_BUSINESS_EMAIL || 'angelosmbj@gmail.com';
 
 // Best-effort in-memory rate limit (per warm serverless instance): caps how

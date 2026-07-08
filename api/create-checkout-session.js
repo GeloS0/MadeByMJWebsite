@@ -12,7 +12,7 @@
 //   STRIPE_SECRET_KEY   — your Stripe secret key (sk_test_... or sk_live_...)
 //
 // Optional env var:
-//   SITE_URL            — your production origin, e.g. https://madebymj.com
+//   SITE_URL            — your production origin, e.g. https://www.eventsmadebymj.com
 //                          Falls back to the request's Origin header, then to
 //                          this project's Vercel URL if neither is present.
 
@@ -55,10 +55,25 @@ module.exports = async (req, res) => {
       return res.status(400).json({ error: 'Invalid amount' });
     }
 
+    // ── SERVER-SIDE PRICE AUTHORITY ──────────────────────────────────────
+    // Never trust the client's amount alone. The charged retainer must be at
+    // least 50% of the selected package's list price. Blocks a tampered client
+    // from paying $1 for a Signature booking. Add-ons only raise the amount.
+    const PRICES = { Bloom: 700, Grand: 1275, Luxe: 1775, Premier: 2375, Estate: 2885, Signature: 3500 };
+    const base = PRICES[packageName];
+    if (!base) {
+      return res.status(400).json({ error: 'Unknown or missing package' });
+    }
+    const minRetainerCents = Math.round(base * 0.5 * 100);
+    if (amountInCents < minRetainerCents) {
+      console.error('Rejected underpriced checkout:', packageName, amountInCents, '<', minRetainerCents);
+      return res.status(400).json({ error: 'Amount is below the required retainer for this package.' });
+    }
+
     const origin =
       req.headers.origin ||
       process.env.SITE_URL ||
-      'https://madebymj.vercel.app';
+      'https://www.eventsmadebymj.com';
 
     // Built by hand (not URLSearchParams) so the {CHECKOUT_SESSION_ID} template
     // token reaches Stripe unencoded — Stripe substitutes it at redirect time.

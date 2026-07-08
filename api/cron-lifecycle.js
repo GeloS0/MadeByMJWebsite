@@ -30,7 +30,7 @@
 
 const Stripe = require('stripe');
 
-const FROM = process.env.MJ_EMAIL_FROM || 'Made by MJ <bookings@madebymj.com>';
+const FROM = process.env.MJ_EMAIL_FROM || 'Made by MJ <bookings@eventsmadebymj.com>';
 const BUSINESS_INBOX = process.env.MJ_BUSINESS_EMAIL || 'angelosmbj@gmail.com';
 const SITE_URL = process.env.SITE_URL || 'https://www.eventsmadebymj.com';
 const REVIEW_URL = process.env.GOOGLE_REVIEW_URL || `${SITE_URL}/contact.html`;
