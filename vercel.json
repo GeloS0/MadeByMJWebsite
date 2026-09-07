@@ -10,7 +10,7 @@
     { "source": "/services", "destination": "/index.html", "permanent": true }
   ],
   "crons": [
-    { "path": "/api/cron-lifecycle", "schedule": "0 15 * * *" }
+    { "path": "/api/cron-lifecycle", "schedule": "0 13 * * *" }
   ],
   "headers": [
     {

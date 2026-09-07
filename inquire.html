@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Book Now — Made by MJ | Colorado Springs</title>
+<title>Book Now — Made by MJ | Bedford, MA</title>
 <meta name="description" content="Book your date: pick your package, tell us about your event, and secure it today with a 50% retainer." />
 <meta name="theme-color" content="#fefbff" />
 <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
@@ -11,7 +11,7 @@
 <!-- Social previews. og:image is relative — set og:url + absolute og:image once the domain is live. -->
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Made by MJ" />
-<meta property="og:title" content="Book Now — Made by MJ | Colorado Springs" />
+<meta property="og:title" content="Book Now — Made by MJ | Bedford, MA" />
 <meta property="og:description" content="Book your date: pick your package, tell us about your event, and secure it today with a 50% retainer." />
 <meta property="og:image" content="images/pastel-wall.jpg" />
 <meta name="twitter:card" content="summary_large_image" />
@@ -249,7 +249,7 @@
           </div>
           <div class="sm:col-span-2">
             <label for="f-venue" class="mb-2 block text-[11px] font-medium uppercase tracking-[0.2em] text-ink/50">Venue or neighborhood</label>
-            <input id="f-venue" name="venue" type="text" placeholder="The Pinery at the Hill, backyard in Briargate…" class="w-full rounded-lg border border-ink/15 bg-pearl px-5 py-3.5 text-sm outline-none transition placeholder:text-ink/35 focus:border-deeprose" />
+            <input id="f-venue" name="venue" type="text" placeholder="Your venue, or home address" class="w-full rounded-lg border border-ink/15 bg-pearl px-5 py-3.5 text-sm outline-none transition placeholder:text-ink/35 focus:border-deeprose" />
           </div>
           <div class="sm:col-span-2">
             <label for="f-vision" class="mb-2 block text-[11px] font-medium uppercase tracking-[0.2em] text-ink/50">Colors, themes, Pinterest boards — anything</label>
@@ -276,7 +276,7 @@
       <!-- Step 5 · Add-ons (priced, dynamic — rows rendered from the ADDONS config in JS) -->
       <fieldset class="wiz-step hidden" data-step="5">
         <legend class="sr-only">Add-ons</legend>
-        <p class="text-sm leading-relaxed text-ink/60">Add anything you'd like included. Prices are Colorado Springs rates — your running total and the 50% retainer update automatically as you choose.</p>
+        <p class="text-sm leading-relaxed text-ink/60">Add anything you'd like included. Prices are Bedford, MA rates — your running total and the 50% retainer update automatically as you choose.</p>
         <div id="addons-list" class="mt-6 grid gap-3"></div>
         <div id="order-summary" class="mt-6 rounded-lg bg-ink/5 p-5 text-sm text-ink/70"></div>
       </fieldset>
@@ -291,7 +291,7 @@
           </div>
           <div>
             <label for="f-phone" class="mb-2 block text-[11px] font-medium uppercase tracking-[0.2em] text-ink/50">Phone</label>
-            <input id="f-phone" name="phone" type="tel" placeholder="(719) 555-0100" class="w-full rounded-lg border border-ink/15 bg-pearl px-5 py-3.5 text-sm outline-none transition placeholder:text-ink/35 focus:border-deeprose" />
+            <input id="f-phone" name="phone" type="tel" placeholder="(978) 555-0100" class="w-full rounded-lg border border-ink/15 bg-pearl px-5 py-3.5 text-sm outline-none transition placeholder:text-ink/35 focus:border-deeprose" />
           </div>
           <div class="sm:col-span-2">
             <label for="f-email" class="mb-2 block text-[11px] font-medium uppercase tracking-[0.2em] text-ink/50">Email *</label>
@@ -371,14 +371,14 @@
   /* ---- ADD-ON MENU: edit names & prices here, no logic changes needed ----
      mode 'qty'  → customer enters a quantity; line total = price × quantity
      mode 'flat' → single checkbox; line total = price when checked
-     Prices marked "placeholder" are my best CO-Springs guesses — adjust them. */
+     Prices calibrated July 2026 against Boston-metro market comps (garlands $20–30/ft; arch/backdrop flats $300–450). */
   var ADDONS = [
     { id: 'chair',    label: 'Folding chair',                       mode: 'qty',  price: 2.50, unit: 'chair' },
     { id: 'table',    label: '8 ft banquet table',                  mode: 'qty',  price: 12,   unit: 'table' },
-    { id: 'garland',  label: 'Extra garland (beyond package base)', mode: 'qty',  price: 10,   unit: 'linear foot' },
+    { id: 'garland',  label: 'Extra garland (beyond package base)', mode: 'qty',  price: 20,   unit: 'linear foot' },
     { id: 'cutout',   label: 'Additional themed cutout / backdrop', mode: 'qty',  price: 40,   unit: 'piece' },
-    { id: 'arch',     label: 'Extra arch',                          mode: 'flat', price: 175 },   // placeholder price
-    { id: 'backdrop', label: 'Shimmer backdrop wall',               mode: 'flat', price: 225 },   // placeholder price
+    { id: 'arch',     label: 'Extra arch',                          mode: 'flat', price: 295 },
+    { id: 'backdrop', label: 'Shimmer backdrop wall',               mode: 'flat', price: 350 },
     { id: 'tent',     label: 'Styled tent cover',                   mode: 'flat', price: 200 }    // placeholder price
   ];
 
@@ -882,7 +882,7 @@
     <div class="grid gap-12 md:grid-cols-[1.2fr_1fr_1fr]">
       <div>
         <p class="font-display text-2xl">Made <em class="text-deeprose">by</em> MJ</p>
-        <p class="mt-3 max-w-xs text-sm leading-relaxed text-ink/50">A two-person balloon and event design studio in Colorado Springs. Memorably styled, seamlessly executed.</p>
+        <p class="mt-3 max-w-xs text-sm leading-relaxed text-ink/50">A two-person balloon and event design studio in Bedford, MA — serving Boston Metro-West and Southern New Hampshire. Memorably styled, seamlessly executed.</p>
       </div>
       <nav aria-label="Footer">
         <p class="mb-4 text-[11px] font-medium uppercase tracking-[0.24em] text-ink/40">Studio</p>
@@ -902,10 +902,10 @@
         <div class="flex flex-col gap-3 text-sm text-ink/70">
           <a href="sms:+17196456836" class="w-fit hover:text-deeprose">Text (719) 645-6836</a>
           <a href="tel:+17196456836" class="w-fit hover:text-deeprose">Call (719) 645-6836</a>
-          <a href="mailto:angelosmbj@gmail.com" class="w-fit hover:text-deeprose">angelosmbj@gmail.com</a>
+          <a href="mailto:bookings@eventsmadebymj.com" class="w-fit hover:text-deeprose">bookings@eventsmadebymj.com</a>
           <a href="https://www.instagram.com/madebymjs" target="_blank" rel="noopener" class="w-fit hover:text-deeprose">Instagram — @madebymjs</a>
           <a href="https://www.facebook.com/profile.php?id=61589057062994" target="_blank" rel="noopener" class="w-fit hover:text-deeprose">Facebook</a>
-          <p class="text-ink/50">Colorado Springs, Colorado</p>
+          <p class="text-ink/50">Bedford, Massachusetts</p>
         </div>
         <p class="mt-5 flex flex-col gap-2 text-[12px] text-ink/45">
           <a href="faq.html" class="w-fit hover:text-deeprose">FAQ</a>

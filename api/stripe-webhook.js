@@ -106,7 +106,7 @@ function shell(innerHtml) {
       </div>
       <div style="padding:40px 34px;">${innerHtml}</div>
       <div style="padding:20px 32px;border-top:1px solid rgba(17,8,32,.08);text-align:center;">
-        <p style="margin:0;font-size:12px;color:rgba(17,8,32,.5);">Made by MJ · Colorado Springs, CO · <a href="tel:+17196456836" style="color:${DEEPROSE};text-decoration:none;">(719) 645-6836</a></p>
+        <p style="margin:0;font-size:12px;color:rgba(17,8,32,.5);">Made by MJ · Bedford, MA · <a href="tel:+17196456836" style="color:${DEEPROSE};text-decoration:none;">(719) 645-6836</a></p>
       </div>
     </div>
   </div></body></html>`;

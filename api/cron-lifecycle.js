@@ -88,7 +88,7 @@ function shell(innerHtml) {
       </div>
       <div style="padding:40px 34px;">${innerHtml}</div>
       <div style="padding:22px 32px;border-top:1px solid rgba(17,8,32,.08);text-align:center;">
-        <p style="margin:0;font-size:12px;color:rgba(17,8,32,.5);">Made by MJ · Colorado Springs, CO · <a href="tel:+17196456836" style="color:${DEEPROSE};text-decoration:none;">(719) 645-6836</a></p>
+        <p style="margin:0;font-size:12px;color:rgba(17,8,32,.5);">Made by MJ · Bedford, MA · <a href="tel:+17196456836" style="color:${DEEPROSE};text-decoration:none;">(719) 645-6836</a></p>
       </div>
     </div>
   </div></body></html>`;
@@ -155,7 +155,7 @@ function reviewEmail(m) {
     p(`It was such a joy bringing your ${esc(m.milestone || 'event')} to life. We hope it looked absolutely stunning — and that your guests felt the difference.`) +
     hr() +
     sub('One small favor') +
-    p(`A quick <strong>Google review</strong> is the number-one way other Colorado Springs hosts find us — and it means the world to a two-person studio.`) +
+    p(`A quick <strong>Google review</strong> is the number-one way other local hosts find us — and it means the world to a two-person studio.`) +
     btn(REVIEW_URL, '★  Leave a Google review  →') +
     pc('Takes about 60 seconds.') +
     hr() +
