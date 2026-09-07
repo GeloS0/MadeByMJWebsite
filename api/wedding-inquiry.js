@@ -54,7 +54,7 @@ function shell(innerHtml) {
       </div>
       <div style="padding:40px 34px;">${innerHtml}</div>
       <div style="padding:22px 32px;border-top:1px solid rgba(17,8,32,.08);text-align:center;">
-        <p style="margin:0;font-size:12px;color:rgba(17,8,32,.5);">Made by MJ · Bedford, MA · <a href="tel:+17196456836" style="color:${DEEPROSE};text-decoration:none;">(719) 645-6836</a></p>
+        <p style="margin:0;font-size:12px;color:rgba(17,8,32,.5);">Made by MJ · Bedford, MA · <a href="tel:+19783644334" style="color:${DEEPROSE};text-decoration:none;">(978) 364-4334</a></p>
       </div>
     </div>
   </div></body></html>`;
@@ -107,7 +107,7 @@ module.exports = async (req, res) => {
     <p style="margin:0 0 12px;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:${DEEPROSE};">Here's what you shared</p>
     ${detailTable}
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-top:14px;"><tr><td style="background:rgba(196,82,122,.06);border-radius:10px;padding:14px 16px;font-size:15px;line-height:1.6;color:${INK};">${esc(vision).replace(/\n/g, '<br/>')}</td></tr></table>
-    <p style="margin:22px 0 0;font-size:14px;line-height:1.7;color:rgba(17,8,32,.6);">Anything on your mind before then? Just reply here, or text us at (719) 645-6836.<br/><br/>With care,<br/><strong style="color:${INK};font-weight:500;">MJ &amp; Gelo — Made by MJ</strong></p>
+    <p style="margin:22px 0 0;font-size:14px;line-height:1.7;color:rgba(17,8,32,.6);">Anything on your mind before then? Just reply here, or text us at (978) 364-4334.<br/><br/>With care,<br/><strong style="color:${INK};font-weight:500;">MJ &amp; Gelo — Made by MJ</strong></p>
   `);
 
   const businessHtml = shell(`
