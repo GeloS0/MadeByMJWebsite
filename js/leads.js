@@ -13,7 +13,7 @@
    Every form on the site then emails you, tagged by page + form id.
    ───────────────────────────────────────────────────────────────── */
 
-window.MJ_LEADS_ENDPOINT = 'https://formspree.io/f/REPLACE_WITH_FORM_ID';
+window.MJ_LEADS_ENDPOINT = 'https://formspree.io/f/mdarbygn';
 
 (function () {
   var RESEND_COOLDOWN_MS = 30000; // don't double-send the same form within 30s
