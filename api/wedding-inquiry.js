@@ -54,7 +54,7 @@ function shell(innerHtml) {
       </div>
       <div style="padding:40px 34px;">${innerHtml}</div>
       <div style="padding:22px 32px;border-top:1px solid rgba(17,8,32,.08);text-align:center;">
-        <p style="margin:0;font-size:12px;color:rgba(17,8,32,.5);">Made by MJ · Bedford, MA · <a href="tel:+19783644344" style="color:${DEEPROSE};text-decoration:none;">(978) 364-4344</a></p>
+        <p style="margin:0;font-size:12px;color:rgba(17,8,32,.5);">Made by MJ · Nashua, NH · <a href="tel:+19783644344" style="color:${DEEPROSE};text-decoration:none;">(978) 364-4344</a></p>
       </div>
     </div>
   </div></body></html>`;
