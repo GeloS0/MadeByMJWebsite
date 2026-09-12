@@ -24,7 +24,8 @@
   { src:"images/frozen-centerpieces.jpg", alt:"Pair of blue and pearl Frozen-themed balloon centerpieces on a dining table", cat:"bday", catLabel:"Birthday", title:"Frozen Table Toppers", tag:"Centerpieces" },
   { src:"images/lavender-arch-entry.jpg", alt:"Lavender and pearl balloon arch framing a home entryway", cat:"celebration", catLabel:"Celebration", title:"Lavender Arch, Entry", tag:"Entry install" },
   { src:"images/plum-garland.jpg", alt:"Close-up of a purple and black balloon garland with foil tinsel", cat:"celebration", catLabel:"Celebration", title:"Plum & Noir, Detail", tag:"The close-up" },
-  { src:"images/july4-indoor-arch.jpg", alt:"Red, white, and blue balloon arch with silver, red, and blue starburst clusters framing an indoor doorway", cat:"celebration", catLabel:"Celebration", title:"Fourth at the Door", tag:"Doorway arch" }
+  { src:"images/july4-indoor-arch.jpg", alt:"Red, white, and blue balloon arch with silver, red, and blue starburst clusters framing an indoor doorway", cat:"celebration", catLabel:"Celebration", title:"Fourth at the Door", tag:"Doorway arch" },
+  { src:"images/game-day-balloon-columns.jpg", alt:"Pair of matching game-day balloon columns in light blue, black, and white topped with maroon and white football balloons", cat:"celebration", catLabel:"Celebration", title:"Game Day Column Duo", tag:"Balloon column pair" }
   ];
 
   var GAP = 24; // px, matches design spacing
