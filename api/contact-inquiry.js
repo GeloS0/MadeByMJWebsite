@@ -77,7 +77,7 @@ function shell(innerHtml) {
       </div>
       <div style="padding:40px 34px;">${innerHtml}</div>
       <div style="padding:20px 32px;border-top:1px solid rgba(17,8,32,.08);text-align:center;">
-        <p style="margin:0;font-size:12px;color:rgba(17,8,32,.5);">Made by MJ · Bedford, MA · <a href="tel:+19783644334" style="color:${DEEPROSE};text-decoration:none;">(978) 364-4334</a></p>
+        <p style="margin:0;font-size:12px;color:rgba(17,8,32,.5);">Made by MJ · Bedford, MA · <a href="tel:+19783644344" style="color:${DEEPROSE};text-decoration:none;">(978) 364-4344</a></p>
       </div>
     </div>
   </div></body></html>`;
@@ -135,7 +135,7 @@ module.exports = async (req, res) => {
       We received your message and will reply within one business day. Here's what you sent us:
     </p>
     <div style="padding:16px 18px;background:rgba(196,82,122,.06);border-radius:10px;font-size:15px;line-height:1.6;color:${INK};">${esc(message).replace(/\n/g, '<br/>')}</div>
-    <p style="margin:22px 0 0;font-size:14px;line-height:1.6;color:rgba(17,8,32,.6);">If it's urgent, text us at (978) 364-4334.<br/><br/>With care,<br/>MJ &amp; Gelo — Made by MJ</p>
+    <p style="margin:22px 0 0;font-size:14px;line-height:1.6;color:rgba(17,8,32,.6);">If it's urgent, text us at (978) 364-4344.<br/><br/>With care,<br/>MJ &amp; Gelo — Made by MJ</p>
   `);
 
   const businessHtml = shell(`

@@ -88,7 +88,7 @@ function shell(innerHtml) {
       </div>
       <div style="padding:40px 34px;">${innerHtml}</div>
       <div style="padding:22px 32px;border-top:1px solid rgba(17,8,32,.08);text-align:center;">
-        <p style="margin:0;font-size:12px;color:rgba(17,8,32,.5);">Made by MJ · Bedford, MA · <a href="tel:+19783644334" style="color:${DEEPROSE};text-decoration:none;">(978) 364-4334</a></p>
+        <p style="margin:0;font-size:12px;color:rgba(17,8,32,.5);">Made by MJ · Bedford, MA · <a href="tel:+19783644344" style="color:${DEEPROSE};text-decoration:none;">(978) 364-4344</a></p>
       </div>
     </div>
   </div></body></html>`;
@@ -127,7 +127,7 @@ function colorsEmail(m) {
     p(`If everything's still exactly as we planned, there's nothing you need to do.`) +
     note(`Good to know: color and design changes are free up to 14 days out — so now's the moment.`) +
     hr() +
-    btn(`sms:+19783644334`, 'Text us any changes →') +
+    btn(`sms:+19783644344`, 'Text us any changes →') +
     pc('Prefer email? Just reply to this one.') +
     signoff('With care,')
   );
@@ -143,7 +143,7 @@ function finalEmail(m) {
     (m.venue ? p(`We have your venue as <strong>${esc(m.venue)}</strong>.`) : '') +
     (m.balanceDue && Number(m.balanceDue) > 0 ? note(`Balance due on event day: <strong>$${esc(m.balanceDue)}</strong>.`) : '') +
     hr() +
-    btn(`sms:+19783644334`, 'Confirm access & contact →') +
+    btn(`sms:+19783644344`, 'Confirm access & contact →') +
     p(`We'll arrive with buffer to have everything built and photo-ready before your first guest walks in.`) +
     signoff('See you soon,')
   );
